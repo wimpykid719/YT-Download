@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>YT Download</title>
+	<link rel="stylesheet" href="styles/vendors/bootstrap-reboot.css" />
+	<link rel="stylesheet" href="styles/style.css" />
+</head>
+<body>
+<h1>YT Download</h1>
+<form>
+	<input type="url" name="url01" size="18" placeholder="https://www.youtube.com/watch?v=">
+	<input type="submit" value="download">
+
+	<button class="button">
+		<!-- preserveAspectRatio viewboxに対しての設定-->
+		<svg class="background" preserveAspectRatio="none" viewBox="0 0 164 45">
+			<use xlink:href='svgs/download.svg#download'></use>
+		</svg>
+		<div class="label">&#68;ownload</div>
+		<div class="success">Open file</div>
+		<svg class="progress" viewBox="0 0 164 32"></svg>
+	</button>
+
+</form>
+
+</body>
+</html>
