@@ -1,28 +1,22 @@
-from pytube import YouTube
 import os
-import ffmpeg
-
 import eel
-
-# ウエブコンテンツを持つフォルダー
-eel.init('web')
-# 最初に表示するhtmlページ
-#eel.start('html/index.html')
-
-#url = 'https://www.youtube.com/watch?v=vUQfJIsTbJI'
+import sys
+import time
+import ffmpeg
+import threading
+from pytube import YouTube
 
 class Downloader():
 	"""docstring for Youtubehq"""
-	def __init__(self, url):
-		yt = YouTube(url)
-		self.title = yt.title
-		self.alltag = yt.streams
-		self.yt = yt
-		print(self.title)
-		# print(self.alltag)
+	def __init__(self, urls):
+		urls = [url for url in urls if url != '']
+		self.urls = urls
+		self.count = len(urls)
+		self.percent = {}
+		self.lock = threading.Lock()
+
 	
-	def makelist(self):
-		alltag = self.alltag
+	def makelist(self, alltag):
 		tags = {}
 		tags_list = []
 		audios = []
@@ -48,8 +42,7 @@ class Downloader():
 			if tags['file_type'] == 'video':
 				videos.append(tags.copy())
 		
-		self.audios = audios
-		self.videos = videos
+		return audios, videos
 
 	def select_mobile_v(self):#まずはmp4である事かつそのなかで一番大きい
 		videos = self.videos
@@ -64,8 +57,7 @@ class Downloader():
 		self.video_hq = video_mobile
 
 	
-	def select_hq_v(self):
-		videos = self.videos
+	def select_hq_v(self, videos):
 		hq_v60 = 0
 		hq_v = 0
 		video_hq = {}
@@ -81,14 +73,12 @@ class Downloader():
 					hq_v = int(video['res'][:-1])
 					video_hq = video
 		if video_hq60:
-			self.video_hq = video_hq60
+			return video_hq60
 		else:
-			self.video_hq = video_hq
-		print(self.video_hq)
+			return video_hq
 
 	
-	def select_hq_a(self):
-		audios = self.audios
+	def select_hq_a(self, audios):
 		hq_a = 0
 		audio_hq = {}
 		for audio in audios:
@@ -96,26 +86,32 @@ class Downloader():
 				if hq_a < int(audio['abr'][:-4]):
 					hq_a = int(audio['abr'][:-4])
 					audio_hq = audio
-		print(audio_hq)
-		self.audio_hq = audio_hq
-
-
-	def download_itag(self):
-		yt = self.yt
-		itag_v = self.video_hq['itag']
+		return audio_hq
+	
+	def show_progress_bar(self, stream, chunk, bytes_remaining):
+		current = ((stream.filesize - bytes_remaining)/stream.filesize)
+		with self.lock:
+			self.percent[threading.currentThread().getName()] = current*100
 		
-		itag_a = self.audio_hq['itag']
 		
-		if not os.path.exists('video/original'):
-			os.makedirs('video/original')
-		yt.streams.get_by_itag(itag_v).download('video/original')
+	def download_audio(self, yt, audio_hq):
+		itag_a = audio_hq['itag']
 
 		if not os.path.exists('audio/webm'):
 			os.makedirs('audio/webm')
+		# ここで音声をダウンロード
 		yt.streams.get_by_itag(itag_a).download('audio/webm')
 
-	def join_audio_video(self):
-		title = self.title
+	def download_video(self, yt, video_hq):
+		itag_v = video_hq['itag']
+		
+		if not os.path.exists('video/original'):
+			os.makedirs('video/original')
+		# ここで動画をダウンロード
+		yt.streams.get_by_itag(itag_v).download('video/original')
+
+
+	def join_audio_video(self, title):
 		video_hq = self.video_hq
 		audio_hq = self.audio_hq
 		mime_type_v = video_hq['mime_type']
@@ -152,17 +148,74 @@ class Downloader():
 			instream_a = ffmpeg.input(title_aac)
 			stream = ffmpeg.output(instream_v, instream_a, title_join, vcodec='copy', acodec='copy') #vcodec='h264'にすればエンコードしてくれる。
 			ffmpeg.run(stream, overwrite_output=True)
+	
+
+
+	def download(self, url):
+		
+		yt = YouTube(url)
+		yt.register_on_progress_callback(self.show_progress_bar)
+		alltag = yt.streams
+		title = yt.title
+		print(title)
+
+		audios, videos = self.makelist(alltag)
+		audio_hq = self.select_hq_a(audios)
+		video_hq = self.select_hq_v(videos)
+		ta = threading.Thread(target=self.download_audio, args=[yt, audio_hq,])
+		tv = threading.Thread(target=self.download_video, args=[yt, video_hq,])
+
+		ta.start()
+		tv.start()
+		ta.join()
+		tv.join()
+
+		
+		# self.join_audio_video(title)
+
+	def get_progress(self, threads):
+		while any(t.is_alive() for t in threads):
+			with self.lock:
+				percent = round(sum(self.percent.values()) / (self.count * 2))
+				# sys.stdout.write('  {percent}%\r'.format(percent=percent))
+				eel.putProgress(percent)
+		print(f'  {percent}%', flush=True)
+
+
+	def multi_download(self):
+		global start
+		start = time.time()
+		downloads = []
+
+		for url in self.urls:
+			print(url)
+			t = threading.Thread(target=self.download, args=[url,])
+			t.start()
+			downloads.append(t)
+		
+		monitor_progress = threading.Thread(target=self.get_progress, args=(downloads,))
+		monitor_progress.start()
+		
+		for t in downloads:
+			t.join()
+		
+		monitor_progress.join()
+		print('done')
+
+		time_of_script = time.time() - start
+		print('実行時間：{}'.format(time_of_script))
+
+
 
 			
-Downloader = Downloader('https://www.youtube.com/watch?v=3df83nUZxFk')
+# Downloader = Downloader(['https://www.youtube.com/watch?v=cw4-bqSpVdo','https://www.youtube.com/watch?v=CGXhyRiXR2M'])
+# Downloader.multi_download()
 
-eel.start('index.html', close_callback=print(Downloader.title))
+# Downloader.async_dl(['https://www.youtube.com/watch?v=cw4-bqSpVdo','https://www.youtube.com/watch?v=CGXhyRiXR2M'])
 
-# Downloader.makelist()
-# Downloader.select_mobile_v()
-# Downloader.select_hq_a()
-# Downloader.download_itag()
-# Downloader.join_audio_video()
+# eel.start('index.html', close_callback=print(Downloader.title))
+
+
 
 # https://www.youtube.com/watch?v=vUQfJIsTbJI スカー
 # https://www.youtube.com/watch?v=rjyi3K8LeQ0 2秒2K

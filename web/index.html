@@ -8,22 +8,140 @@
 	<link rel="stylesheet" href="styles/style.css" />
 </head>
 <body>
-<h1>YT Download</h1>
-<form>
-	<input type="url" name="url01" size="18" placeholder="https://www.youtube.com/watch?v=">
-	<input type="submit" value="download">
-
-	<button class="button">
-		<!-- preserveAspectRatio viewboxに対しての設定-->
-		<svg class="background" preserveAspectRatio="none" viewBox="0 0 164 45">
-			<use xlink:href='svgs/download.svg#download'></use>
-		</svg>
-		<div class="label">&#68;ownload</div>
-		<div class="success">Open file</div>
-		<svg class="progress" viewBox="0 0 164 32"></svg>
-	</button>
-
-</form>
-
+<script type="text/javascript" src="/eel.js"></script>
+<div id="global-container">
+	<header class="header">
+		<div class="header__inner">
+			<h1 class="appName"><svg class="icon icon-youtube"><use xlink:href="#icon-youtube"></use></svg>YT Download</h1>
+			<div class="infomation">
+				<span class="developer">To developer</span>
+				<div class="twitterContent">
+					<div class="twitterContent__wrap">
+						<div class="twitterContent__wrap2">
+							<div class="profilePic">
+								<img src="images/MeForProfile.jpg" alt="developerPicture">
+							</div>
+							<div class="aboutMe">
+								<span class="aboutMe__name">新卒まぐれ</span>
+								<span class="aboutMe__account">@unemployed_jp</span>
+								<button class="aboutMe__contact">Twitter</button>
+							</div>
+						</div>
+						<div class="twitterContent__discript">
+							<span>アプリに関する内容はTwitterからお願いします。</span>
+						</div>
+					</div>
+				</div>
+				<span class="support">To support</span>
+				<div class="supportContent">
+					<div class="supportContent__wrap">
+						<div class="supportContent__wrap2">
+							<div class="emoji">
+								<span class="emoji__dollar">💵</span>
+							</div>
+							<div class="please">
+								<span class="please__pray">開発を続けさせて下さい。</span>
+								<button class="please__support">Support</button>
+							</div>
+						</div>
+						<div class="supportContent__discript">
+							<span>多くのサービスで使用されるStripeを使い安全に行います。</span>
+						</div>
+					</div>
+				</div>
+				<span class="social">Social</span>
+				<div class="socialContent">
+					<div class="socialContent__wrap">
+						<nav class="socialMedia">
+							<ul class="socialMedia__ul">
+								<li class="socialMedia__li"><a><svg class="icon icon-instagram"><use xlink:href="#icon-instagram"></use></svg></a></li>
+								<li class="socialMedia__li"><a><svg class="icon icon-github"><use xlink:href="#icon-github"></use></svg></a></li>
+								<li class="socialMedia__li"><a><svg class="icon icon-youtube"><use xlink:href="#icon-youtube"></use></svg></a></li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+			</div>
+		<!-- header__innerのdiv -->
+		</div>
+	</header>
+	<div class="main">
+		<div class="add">
+			<button class="add__button">
+				<span>add</span>
+				<span></span>
+				<span></span>
+			</button>
+		</div>
+		<div class="youtubeDownload">
+			<form onsubmit="return false">
+				<div class="dlcardWrap">
+					<div class="dlcard">
+						<div class="dlcard__title">
+							<svg class="icon icon-youtube"><use xlink:href="#icon-youtube2"></use></svg>
+							<div class="dlcard__videoName">Supreme bot</div>
+						</div>
+						<div class="dlcard__thumbnail">
+							<img src="images/pinkguy.jpg" alt="">
+						</div>
+						<div class="dlcard__url">
+							<input type="url" name="url01" size="18" placeholder="URL：https://www.youtube.com/watch?v=">
+						</div>
+					<!-- dlcardのdiv -->
+					</div>
+					<div class="dlcard">
+						<div class="dlcard__title">
+							<svg class="icon icon-youtube"><use xlink:href="#icon-youtube2"></use></svg>
+							<div class="dlcard__videoName">Supreme bot</div>
+						</div>
+						<div class="dlcard__thumbnail">
+							<img src="images/pinkguy.jpg" alt="">
+						</div>
+						<div class="dlcard__url">
+							<input type="url" name="url01" size="18" placeholder="URL：https://www.youtube.com/watch?v=">
+						</div>
+					<!-- dlcardのdiv -->
+					</div>
+				</div>
+				<div class="selectType">
+					<span class="selectType__discript">#自動で画質が高いものを選択してダウンロードします。</span>
+					<div class="selectType__button">
+						<input type="radio" id="audio" name="type" value="1" checked="checked"><label for="audio">audio only（acc）</label>
+					</div>
+					<div class="selectType__button">
+						<input type="radio" id="mobile" name="type" value="2"><label for="mobile">for mobile（avi + aac） </label>
+					</div>
+					<div class="selectType__button">
+						<input type="radio" id="highQuality" name="type" value="3"><label for="highQuality">for high quality （vp9 2160p over + aac）</label>
+					</div>
+				</div>
+				<div class="downloadButton">
+					<div class="progressBar">
+						<div class="progressBar__value"><!--titleだった-->
+							<span class="percent" id="css-pourcent">100%</span>
+						</div>
+					<!-- progressbarのdiv -->
+					</div>
+					<div class="downloadButton__bg">
+						<button type='submit' name='action' value='send' class="downloadButton__circle" id="progress-css">
+							<span class="downloadButton__text">Download</span>
+							<div class="downloadButton__icon">
+								<svg class="icon icon-arrow-down"><use xlink:href="#icon-arrow-down"></use></svg>
+							</div>
+						</button>
+					</div>
+				</div>
+			</form>
+		<!-- contenntのdiv -->
+		</div>
+	<!-- notice-contentのdiv -->
+	</div>
+<!-- global-containerのdiv -->
+</div>
+<script src="svgs/object-svgs.js"></script>
+<script src="scripts/vendors/TweenMax.min.js"></script>
+<script src="scripts/vendors/vue.min.js"></script>
+<script src="scripts/libs/addsvg.js"></script>
+<script src="scripts/libs/progress-bar.js"></script>
 </body>
 </html>

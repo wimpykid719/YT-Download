@@ -1,1 +1,654 @@
-/* No CSS *//*# sourceMappingURL=style.css.map */
+@charset "UTF-8";
+.font-sm, .twitterContent, .supportContent, .socialContent, .dlcard {
+  font-size: 14px;
+}
+
+.font-md {
+  font-size: 17px;
+}
+
+.font-lr {
+  font-size: 17px;
+}
+
+.font-lg {
+  font-size: 25px;
+}
+
+.flex, .dlcard {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+body {
+  font-family: "Kameron", "Noto Sans JP", sans-serif;
+}
+
+h1 {
+  font-size: 20px;
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+}
+
+button:focus {
+  outline: 0;
+}
+
+.svgAll {
+  display: none;
+}
+
+#global-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.header {
+  width: 30%;
+  height: 100vh;
+  background-color: #FAFBFD;
+}
+
+.header__inner {
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 10%;
+  margin-bottom: 10%;
+  max-width: 1024px;
+}
+
+.header .appName {
+  text-align: center;
+}
+
+.header .appName > svg {
+  margin-right: 10px;
+  margin-bottom: 4px;
+  fill: red;
+  height: 1.4em;
+  width: 1.4em;
+}
+
+.infomation {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 10%;
+}
+
+.twitterContent {
+  height: 140px;
+  background: #FFF;
+  border-radius: 20px;
+  margin-top: 10%;
+  margin-bottom: 10%;
+  -webkit-box-shadow: rgba(149, 157, 165, 0.1) 0px 8px 24px;
+          box-shadow: rgba(149, 157, 165, 0.1) 0px 8px 24px;
+}
+
+.twitterContent__wrap {
+  padding: 10% 3% 0% 10%;
+}
+
+.twitterContent__wrap2 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.twitterContent .profilePic {
+  height: 50px;
+  width: 50px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.twitterContent .aboutMe {
+  width: 60%;
+}
+
+.twitterContent .aboutMe__name {
+  font-weight: bold;
+}
+
+.twitterContent .aboutMe__account {
+  font-size: .5em;
+}
+
+.twitterContent .aboutMe__contact {
+  border: none;
+  font-size: .75em;
+  background-color: #1da1f2;
+  color: white;
+  width: 60px;
+  height: 20px;
+  border-radius: 20px;
+}
+
+.twitterContent__discript {
+  font-size: .5em;
+  padding-right: 10%;
+  margin-top: 6%;
+}
+
+.supportContent {
+  height: 140px;
+  background: #FFF;
+  border-radius: 20px;
+  margin-top: 10%;
+  margin-bottom: 10%;
+  -webkit-box-shadow: rgba(149, 157, 165, 0.1) 0px 8px 24px;
+          box-shadow: rgba(149, 157, 165, 0.1) 0px 8px 24px;
+}
+
+.supportContent__wrap {
+  padding: 10% 3% 0% 10%;
+}
+
+.supportContent__wrap2 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.supportContent .emoji {
+  height: 50px;
+  width: 50px;
+  border-radius: 8px;
+  background-color: #28b2b1;
+  font-size: 1.8em;
+  text-align: center;
+  line-height: 2.2em;
+}
+
+.supportContent .please {
+  width: 60%;
+}
+
+.supportContent .please__pray {
+  font-weight: bold;
+}
+
+.supportContent .please__support {
+  border: none;
+  font-size: .75em;
+  background-color: #28b2b1;
+  color: white;
+  width: 60px;
+  height: 20px;
+  border-radius: 20px;
+}
+
+.supportContent__discript {
+  font-size: .5em;
+  margin-top: 6%;
+}
+
+.socialContent {
+  height: 70px;
+  background: #FFF;
+  border-radius: 20px;
+  margin-top: 10%;
+  -webkit-box-shadow: rgba(149, 157, 165, 0.1) 0px 8px 24px;
+          box-shadow: rgba(149, 157, 165, 0.1) 0px 8px 24px;
+}
+
+.socialContent__wrap {
+  padding: 10% 10% 0% 10%;
+}
+
+.socialContent .socialMedia__ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.socialContent .socialMedia__li {
+  width: 20px;
+  height: 20px;
+}
+
+.socialContent .socialMedia__li > a > svg {
+  width: 20px;
+  height: 20px;
+}
+
+.main {
+  width: 100%;
+  padding-top: 2%;
+}
+
+.add {
+  margin-bottom: 3%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  padding-right: 5%;
+}
+
+.add__button {
+  width: 75px;
+  height: 35px;
+  border: solid 2px #126eff;
+  background-color: transparent;
+  border-radius: 35px;
+  -webkit-box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+          box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  line-height: 27px;
+}
+
+.add__button > span:nth-child(1) {
+  color: #126eff;
+  margin-left: 18%;
+  font-size: 11px;
+}
+
+.add__button > span:nth-child(2) {
+  width: 10px;
+  height: 2px;
+  background-color: #126eff;
+  display: block;
+  -webkit-transform: translate(3px, 12.5px) rotate(90deg);
+          transform: translate(3px, 12.5px) rotate(90deg);
+  border-radius: 50px;
+}
+
+.add__button > span:nth-child(3) {
+  width: 10px;
+  height: 2px;
+  background-color: #126eff;
+  display: block;
+  -webkit-transform: translate(-7px, 12px);
+          transform: translate(-7px, 12px);
+  border-radius: 50px;
+}
+
+.youtubeDownload {
+  width: 90%;
+  margin: 0 auto;
+  max-width: 1070px;
+}
+
+.downloadButton {
+  font-size: 11px;
+  margin: 3% auto;
+  display: block;
+  width: 120px;
+  height: 40px;
+}
+
+.downloadButton__bg {
+  -webkit-transition: -webkit-transform .5s;
+  transition: -webkit-transform .5s;
+  transition: transform .5s;
+  transition: transform .5s, -webkit-transform .5s;
+  -webkit-transform: scaleY(1);
+          transform: scaleY(1);
+}
+
+.downloadButton__circle {
+  width: 100%;
+  -webkit-transition: -webkit-transform .5s;
+  transition: -webkit-transform .5s;
+  transition: transform .5s;
+  transition: transform .5s, -webkit-transform .5s;
+  color: white;
+  border: none;
+  position: relative;
+  z-index: 11;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border-radius: 50px;
+  background: #126eff;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 6px 0px 6px 20px;
+}
+
+.downloadButton__icon {
+  width: 17px;
+  height: 30px;
+  border-bottom: solid 2px;
+  -webkit-transform: translate(10px, -7px);
+          transform: translate(10px, -7px);
+}
+
+.downloadButton__icon::before {
+  width: 1px;
+  height: 5px;
+  border: solid 1px;
+  content: "";
+  display: block;
+  border-radius: 50px;
+  -webkit-transform: translate(-1px, 25px);
+          transform: translate(-1px, 25px);
+}
+
+.downloadButton__icon::after {
+  width: 1px;
+  height: 5px;
+  border: solid 1px;
+  content: "";
+  border-radius: 50px;
+  display: block;
+  -webkit-transform: translate(15.5px, 20px);
+          transform: translate(15.5px, 20px);
+}
+
+.downloadButton__icon > svg {
+  position: absolute;
+  top: 13px;
+  left: 2px;
+  fill: white;
+  height: 13px;
+  width: 13px;
+  -webkit-transform: translate(0px, -2px);
+          transform: translate(0px, -2px);
+  -webkit-animation-name: kf-arrow-anime;
+          animation-name: kf-arrow-anime;
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+  -webkit-animation-timing-function: linear;
+          animation-timing-function: linear;
+  -webkit-animation-delay: 0s;
+          animation-delay: 0s;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-direction: normal;
+          animation-direction: normal;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+}
+
+.downloadButton .progressBar {
+  display: none;
+  -webkit-transition: all .5s;
+  transition: all .5s;
+}
+
+.downloadButton.open {
+  width: 250px;
+}
+
+.downloadButton.open .downloadButton__bg {
+  background: #555;
+  position: relative;
+  width: 100%;
+  height: 40px;
+  -webkit-transform: scaleY(0.125);
+          transform: scaleY(0.125);
+  margin-top: 5px;
+  display: block;
+  border-radius: 5px;
+}
+
+.downloadButton.open .downloadButton__circle {
+  position: absolute;
+  height: 100%;
+  border-radius: 5px;
+  background-color: #126eff;
+  padding: 0;
+}
+
+.downloadButton.open .downloadButton__text {
+  display: none;
+}
+
+.downloadButton.open .downloadButton__icon {
+  display: none;
+}
+
+.downloadButton.open #progress-css {
+  width: 100%;
+}
+
+.downloadButton.open .progressBar {
+  -webkit-animation-name: progress;
+          animation-name: progress;
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+  -webkit-animation-timing-function: ease-out;
+          animation-timing-function: ease-out;
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both;
+}
+
+.downloadButton.open .progressBar__value {
+  text-align: end;
+  margin-bottom: -18px;
+}
+
+.downloadButton.open .progressBar > #progress-css {
+  width: 100%;
+}
+
+.dlcardWrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.dlcard {
+  position: relative;
+  height: 300px;
+  margin-bottom: 4%;
+}
+
+.dlcard__title {
+  top: 5%;
+  left: 11%;
+  color: white;
+  z-index: 10;
+  position: absolute;
+}
+
+.dlcard__title > svg {
+  fill: white;
+  height: 1.4em;
+  width: 3.4em;
+}
+
+.dlcard__videoName {
+  display: inline;
+  vertical-align: middle;
+}
+
+.dlcard__thumbnail {
+  position: absolute;
+  z-index: 0;
+  border-radius: 20px;
+  overflow: hidden;
+  height: 100%;
+}
+
+.dlcard__thumbnail::after {
+  opacity: 0.8;
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* 塗りつぶす */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(40%, rgba(255, 255, 255, 0)), to(#ff74db));
+  background: linear-gradient(top, rgba(255, 255, 255, 0) 40%, #ff74db 100%);
+}
+
+.dlcard__thumbnail > img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.dlcard__url {
+  width: 70%;
+  z-index: 11;
+  position: absolute;
+  bottom: 0;
+  bottom: 1%;
+  left: 50%;
+  -webkit-transform: translateY(-50%) translateX(-50%);
+          transform: translateY(-50%) translateX(-50%);
+}
+
+.dlcard__url > input {
+  color: white;
+}
+
+.dlcard__url > input::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.dlcard__url > input:-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.dlcard__url > input::-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.dlcard__url > input::placeholder {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.dlcard__url > input[type="url"] {
+  border: 1px solid white;
+  width: 100%;
+  outline: none;
+  line-height: 2px;
+  border-width: 0px 0px 2px 0px;
+  background-color: transparent;
+}
+
+@-webkit-keyframes kf-arrow-anime {
+  0%, 50%, 100% {
+    -webkit-transform: translateY(-10%);
+            transform: translateY(-10%);
+  }
+  30% {
+    -webkit-transform: none;
+            transform: none;
+  }
+}
+
+@keyframes kf-arrow-anime {
+  0%, 50%, 100% {
+    -webkit-transform: translateY(-10%);
+            transform: translateY(-10%);
+  }
+  30% {
+    -webkit-transform: none;
+            transform: none;
+  }
+}
+
+@-webkit-keyframes kf-bg-anime {
+  0% {
+    -webkit-transform: scale(0.01);
+            transform: scale(0.01);
+  }
+  25% {
+    -webkit-transform: scale(0.05);
+            transform: scale(0.05);
+  }
+  50% {
+    -webkit-transform: scale(0.1);
+            transform: scale(0.1);
+  }
+  75% {
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5);
+  }
+}
+
+@keyframes kf-bg-anime {
+  0% {
+    -webkit-transform: scale(0.01);
+            transform: scale(0.01);
+  }
+  25% {
+    -webkit-transform: scale(0.05);
+            transform: scale(0.05);
+  }
+  50% {
+    -webkit-transform: scale(0.1);
+            transform: scale(0.1);
+  }
+  75% {
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5);
+  }
+}
+
+@-webkit-keyframes progress {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes progress {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@media (min-width: 1024px) {
+  .dlcardWrap {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+  .dlcardWrap > .dlcard {
+    -ms-flex-preferred-size: 48%;
+        flex-basis: 48%;
+  }
+}
+/*# sourceMappingURL=style.css.map */

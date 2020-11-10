@@ -1,3 +1,492 @@
+.font-sm {
+	font-size: 14px;
+}
+  .font-md {
+	font-size: 17px;
+}
+  .font-lr {
+	font-size: 17px;
+}
+  .font-lg {
+	font-size: 25px;
+}
+
+.flex {
+	display:flex;
+	flex-direction: column;
+}
+
 body {
 	font-family: "Kameron", "Noto Sans JP", sans-serif;
+}
+
+h1 {
+	font-size: 20px;
+	margin: 0;
+}
+
+img {
+	max-width: 100%;
+}
+
+ button:focus {
+	outline: 0;
+}
+
+.svgAll {
+	display: none;
+}
+
+#global-container {
+	display: flex;
+}
+
+.header {
+	width: 30%;
+	height: 100vh;
+	background-color: #FAFBFD;
+
+	&__inner {
+		width: 90%;
+		margin: 0 auto;
+		margin-top: 10%;
+		margin-bottom: 10%;
+		max-width: 1024px;
+	}
+	.appName {
+		text-align: center;
+		& > svg {
+			margin-right: 10px;
+			margin-bottom: 4px;
+			fill: red;
+			height: 1.4em;
+			width: 1.4em;
+		}
+	}
+}
+
+.infomation {
+	width: 80%;
+	margin: 0 auto;
+	margin-top: 10%;
+}
+	
+.twitterContent {
+	@extend .font-sm;
+	height: 140px;
+	background: #FFF;
+	border-radius: 20px;
+	margin-top: 10%;
+	margin-bottom: 10%;
+	box-shadow: rgba(149, 157, 165, 0.1) 0px 8px 24px;
+	&__wrap {
+		padding: 10% 3% 0% 10%;
+	}
+	&__wrap2{
+		display: flex;
+		justify-content:space-between;
+	}
+	.profilePic {
+		height: 50px;
+		width: 50px;
+		border-radius: 8px;
+		overflow: hidden;
+	}
+	.aboutMe {
+		width: 60%;
+		&__name {
+			font-weight: bold;
+		}
+		&__account {
+			font-size: .5em;
+		}
+		&__contact {
+			border: none;
+			font-size: .75em;
+			background-color: #1da1f2;
+			color: white;
+			width: 60px;
+			height: 20px;
+			border-radius: 20px;
+		}
+	}
+	&__discript {
+		font-size: .5em;
+		padding-right: 10%;
+		margin-top: 6%;
+	}	
+}
+
+
+.supportContent {
+	@extend .font-sm;
+	height: 140px;
+	background: #FFF;
+	border-radius: 20px;
+	margin-top: 10%;
+	margin-bottom: 10%;
+	box-shadow: rgba(149, 157, 165, 0.1) 0px 8px 24px;
+	&__wrap {
+		padding: 10% 3% 0% 10%;
+	}
+	&__wrap2 {
+		display: flex;
+		justify-content:space-between;
+	}
+	.emoji {
+		height: 50px;
+		width: 50px;
+		border-radius: 8px;
+		background-color: #28b2b1;
+		font-size: 1.8em;
+		text-align: center;
+		line-height: 2.2em;
+	}
+	.please {
+		width: 60%;
+		&__pray {
+			font-weight: bold;
+		}
+		&__support {
+			border: none;
+			font-size: .75em;
+			background-color: #28b2b1;
+			color: white;
+			width: 60px;
+			height: 20px;
+			border-radius: 20px;
+		}
+	}
+	&__discript {
+		font-size: .5em;
+		margin-top: 6%;
+	}
+}
+
+.socialContent {
+	@extend .font-sm;
+	height: 70px;
+	background: #FFF;
+	border-radius: 20px;
+	margin-top: 10%;
+	box-shadow: rgba(149, 157, 165, 0.1) 0px 8px 24px;
+	&__wrap {
+		padding: 10% 10% 0% 10%;
+	}
+	.socialMedia {
+		&__ul {
+			padding: 0;
+			margin: 0;
+			list-style: none;
+			display: flex;
+			justify-content: space-between;
+		}
+		&__li {
+			width: 20px;
+			height: 20px;
+			& > a {
+				& > svg {
+					width: 20px;
+					height: 20px;
+				}
+			}
+		}
+	}
+}
+
+
+
+
+.main {
+	width: 100%;
+	padding-top: 2%;
+}
+
+.add {
+	margin-bottom: 3%;
+	display: flex;
+	justify-content: flex-end;
+	padding-right: 5%;
+	&__button {
+		width: 75px;
+		height: 35px;
+		border: solid 2px #126eff;
+		background-color: transparent;
+		border-radius: 35px;
+		box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+		display: flex;
+		line-height: 27px;
+		& > span {
+			&:nth-child(1) {
+				color: #126eff;
+				margin-left: 18%;
+				font-size: 11px;
+			}
+			&:nth-child(2) {
+				width: 10px;
+				height: 2px;
+				background-color: #126eff;
+				display: block;
+				transform: translate(3px, 12.5px) rotate(90deg);
+				border-radius: 50px;
+			}
+			&:nth-child(3) {
+				width: 10px;
+				height: 2px;
+				background-color: #126eff;
+				display: block;
+				transform: translate(-7px, 12px);
+				border-radius: 50px;
+			}
+		}
+	}
+	
+}	
+
+
+
+.youtubeDownload {
+	width: 90%;
+	margin: 0 auto;
+	max-width: $contentMaxWidth;
+}
+
+.downloadButton {
+	$downloadButton: & !global;
+	font-size: 11px;
+	margin: 3% auto;
+	display: block;
+	width: 120px;
+	height: 40px;
+
+	&__bg {
+		transition: transform .5s;
+		transform: scaleY(1);
+	}
+	
+	&__circle {
+		width: 100%;
+		transition: transform .5s;
+		color: white;
+		border: none;
+		position: relative;
+		z-index: 11;
+		display: flex;
+		border-radius: 50px;
+		background: #126eff;
+		align-items: center;
+		padding:6px 0px 6px 20px;
+		
+	}
+		
+	&__icon {
+		width: 17px;
+		height: 30px;
+		border-bottom: solid 2px;
+		transform: translate(10px, -7px);
+
+		&::before {
+			width: 1px;
+			height: 5px;
+			border: solid 1px;
+			content: "";
+			display: block;
+			border-radius: 50px;
+			transform: translate(-1px, 25px);
+		}
+
+		&::after {
+			width: 1px;
+			height: 5px;
+			border: solid 1px;
+			content: "";
+			border-radius: 50px;
+			display: block;
+			transform: translate(15.5px, 20px);
+		}
+		& > svg {
+			position: absolute;
+			top: 13px;
+			left: 2px;
+			fill: $cWhite;
+			height: $svgArrow;
+			width: $svgArrow;
+			transform: translate(0px, -2px);
+			@include animation($name: kf-arrow-anime, $iteration-count: infinite, $duration: 1s, $timing-function: linear)
+		}
+	}
+		
+	.progressBar {
+		display: none;
+		transition: all .5s;
+	}
+
+	&.open {
+		width: 250px;
+		& .#{downloadButton}__bg {
+			background: #555;
+			position: relative;
+			width: 100%;
+			height: 40px;
+			transform: scaleY(0.125);
+			margin-top: 5px;
+			display: block;
+			border-radius: 5px;
+		}
+		& .#{downloadButton}__circle{
+			position:absolute;
+			height: 100%;
+			border-radius: 5px;
+			background-color:#126eff;
+			padding: 0;
+	
+		}
+		& .#{downloadButton}__text {
+			display: none;
+		}
+
+		& .#{downloadButton}__icon {
+			display: none;
+		}
+
+		& #progress-css {
+			width: 100%;
+		}
+
+		& .progressBar {
+			animation-name: progress;
+			animation-duration: 1s;
+			animation-timing-function: ease-out;
+			animation-fill-mode: both;
+			&__value {
+				text-align: end;
+				margin-bottom: -18px;
+			}
+			& > #progress-css{
+				width: 100%;	
+			}
+		}
+	}
+}
+
+
+.dlcardWrap {
+	display: flex;
+	flex-direction: column;
+}
+
+.dlcard {
+	@extend .font-sm;
+	@extend .flex;	
+	position: relative;
+	height: 300px;
+	margin-bottom: 4%;
+
+	&__title {
+		top: 5%;
+		left: 11%;
+		color: $cWhite;
+		z-index: 10;
+		position: absolute;
+		& > svg {
+			fill: $cWhite;
+			height: $svgYoutube;
+			width: $svgYoutube + 2;
+		}
+	}
+	
+	&__videoName {
+		display: inline;
+		vertical-align: middle;
+	}
+
+		
+	&__thumbnail {
+		position: absolute;
+		z-index: 0;
+		border-radius: 20px;
+		overflow: hidden;
+		height: 100%;
+		&::after {
+			opacity: 0.8;
+			position: absolute;
+			content:"";
+			top:0;
+			left:0;
+			width: 100%;
+			height:100%;
+			/* 塗りつぶす */
+			background: linear-gradient(top, rgba(255, 255, 255, 0) 40%, #ff74db 100%);
+		}
+
+		& > img {
+			object-fit: cover;
+			width: 100%;
+			height: 100%;
+
+		}
+	}
+	&__url {
+		width: 70%;
+		z-index: 11;
+		position: absolute;
+		bottom: 0;
+		bottom: 1%;
+		left: 50%;
+		transform: translateY(-50%) translateX(-50%);
+
+		& > input {
+			color: $cWhite;
+			&::placeholder {
+				color: rgba(255, 255, 255, .8);
+			}
+			&[type="url"] {
+				border: 1px solid white;
+				width: 100%;
+				outline: none;
+				line-height: 2px;
+				border-width: 0px 0px 2px 0px;
+				background-color: transparent;
+				}
+		}
+	}
+
+}
+
+@keyframes kf-arrow-anime {
+	0%, 50%, 100% {
+		transform: translateY(-10%);
+	}
+
+	30% {
+		transform: none;
+	}
+
+}
+
+@keyframes kf-bg-anime {
+	0% {
+		transform: scale(0.01);
+	}
+
+	25% {
+		transform: scale(0.05);
+	}
+
+	50% {
+		transform: scale(0.1);
+	}
+
+	75% {
+		transform: scale(0.5);
+	}
+}
+
+@keyframes progress{
+	0%{
+		opacity: 0;
+	}
+	100%{
+		opacity: 1;
+	}
 }
