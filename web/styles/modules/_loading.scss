@@ -1,0 +1,25 @@
+.donutSpinner {
+	position: absolute;
+	left: 47%;
+	top: 47%;
+	&.open {
+		display: inline-block;
+		border: 4px solid hsl(222, 100%, 95%);;
+		border-left-color: $cBlue;
+		border-radius: 50%;
+		width: 30px;
+		height: 30px;
+		animation: donut-spin .5s linear infinite;
+	}
+
+}
+
+
+@keyframes donut-spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}

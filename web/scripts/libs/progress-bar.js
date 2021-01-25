@@ -5,8 +5,8 @@ class ProgressBar {
 		this.DOM.container = document.querySelector('.downloadButton');
 		this.DOM.icon = document.querySelector('.icon-arrow-down');
 		this.DOM.progress = document.querySelector('.progressBar');
-		this.DOM.inputURL = document.querySelectorAll('.dlcard__url > input');
-		this.DOM.progressNumber = document.querySelector('#progress-css');
+		
+		this.DOM.form = document.querySelector('.youtubeDownload > form');
 		this.eventType = this._getEventType();
 		this._addEvent();
 	}
@@ -17,6 +17,7 @@ class ProgressBar {
 	}
 
 	_transform() {
+		this.DOM.inputURL = document.querySelectorAll('.dlcard__url > input');
 		const urls = []
 		if(this.DOM.container.classList.contains('open')){
 			this.DOM.icon.style.display = 'none';
@@ -26,8 +27,9 @@ class ProgressBar {
 				this.DOM.inputURL.forEach((el) => {
 					urls.push(el.value)
 					});
+					let radioNodeList = this.DOM.form.type;
 				//Pythonプログラムを実行する。
-				eel.dowload(urls);
+				eel.dowload(urls, radioNodeList.value);
 			}
 		}else{
 			this.DOM.btn.style.position = '';
@@ -49,44 +51,29 @@ class ProgressBar {
 		this.DOM.btn.addEventListener(this.eventType, this._transform.bind(this));
 	}
 
-	putProgress(n) {
-		console.log(n)
-		this.DOM.progressNumber.style.width = `${n}%`;
-
-	}
 
 }
 
-class AddDLcard {
-	constructor() {
-		this.DOM = {};
-		this.DOM.container = document.querySelector('.add__button');
-		this.DOM.dlcard = document.querySelector('.dlcard')
-		this.DOM.dlcardWrap = document.querySelector('.dlcardWrap');
-		this.eventType = this._getEventType();
-		this._addEvent();
-	}
 
-	_getEventType() {
-		//スマホで見る場合このプロパティが存在する事になる    True        False
-		return window.ontouchstart ? 'touchstart' : 'click';
-	}
 
-	_addEvent() {
-		// thisを束縛しないとaddEventListerが取得される。ためMobileMenu内の関数なので束縛が必要
-		this.DOM.container.addEventListener(this.eventType, this._click.bind(this));
-		
-	}
 
-	_click() {
-		const addElement = this.DOM.dlcard.cloneNode(true);
-		this.DOM.dlcardWrap.appendChild(addElement);
-	}
+let progress = new ProgressBar();
+
+eel.expose(putProgress)
+function putProgress(n) {
+	let DOM = {};
+	DOM.progressState = document.querySelector('#progress-css');
+	DOM.progressNumber = document.querySelector('#css-pourcent');
+	DOM.progressState.style.width = `${n}%`;
+	DOM.progressNumber.innerHTML = `${n}%`;
+
 }
 
+eel.expose(doneProgress)
+function doneProgress() {
+	console.log(progress.DOM.icon);
+	progress.DOM.container.classList.remove('open');
+	progress.DOM.icon.style.display = '';
+	progress.DOM.progress.style.display = 'none';
 
-
-const p = new ProgressBar();
-const putProgress = p.putProgress()
-eel.expose(putProgress) 
-new AddDLcard();
+}

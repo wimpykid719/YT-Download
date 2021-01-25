@@ -14,6 +14,12 @@
 		<div class="header__inner">
 			<h1 class="appName"><svg class="icon icon-youtube"><use xlink:href="#icon-youtube"></use></svg>YT Download</h1>
 			<div class="infomation">
+				<nav class="menu">
+					<ul>
+						<li class="active"><svg class="icon icon-download"><use xlink:href="#icon-download"></use></svg>Download</li>
+						<li><svg class="icon icon-tags"><use xlink:href="#icon-tags"></use></svg>Tags</li>
+					</ul>
+				</nav>
 				<span class="developer">To developer</span>
 				<div class="twitterContent">
 					<div class="twitterContent__wrap">
@@ -65,7 +71,7 @@
 		<!-- header__innerのdiv -->
 		</div>
 	</header>
-	<div class="main">
+	<div class="main activateP">
 		<div class="add">
 			<button class="add__button">
 				<span>add</span>
@@ -74,28 +80,35 @@
 			</button>
 		</div>
 		<div class="youtubeDownload">
-			<form onsubmit="return false">
+			<form onsubmit="return false" autocomplete="off">
 				<div class="dlcardWrap">
-					<div class="dlcard">
+					<div class="dlcard fadeeffect">
 						<div class="dlcard__title">
 							<svg class="icon icon-youtube"><use xlink:href="#icon-youtube2"></use></svg>
 							<div class="dlcard__videoName">Supreme bot</div>
 						</div>
 						<div class="dlcard__thumbnail">
-							<img src="images/pinkguy.jpg" alt="">
+							<img src="images/error.png" alt="">
+							<div class="dlcard__thumbnail--cover thumbnail-1">
+								<div class="donutSpinner"></div>
+							</div>
 						</div>
 						<div class="dlcard__url">
 							<input type="url" name="url01" size="18" placeholder="URL：https://www.youtube.com/watch?v=">
 						</div>
 					<!-- dlcardのdiv -->
 					</div>
-					<div class="dlcard">
+					<div class="dlcard fadeeffect">
 						<div class="dlcard__title">
 							<svg class="icon icon-youtube"><use xlink:href="#icon-youtube2"></use></svg>
 							<div class="dlcard__videoName">Supreme bot</div>
 						</div>
 						<div class="dlcard__thumbnail">
-							<img src="images/pinkguy.jpg" alt="">
+							<img src="images/error.png" alt="">
+							<div class="dlcard__thumbnail--cover thumbnail-2">
+								<div class="donutSpinner"></div>
+							</div>
+							
 						</div>
 						<div class="dlcard__url">
 							<input type="url" name="url01" size="18" placeholder="URL：https://www.youtube.com/watch?v=">
@@ -136,12 +149,81 @@
 		</div>
 	<!-- notice-contentのdiv -->
 	</div>
+	<div class="main2">
+		<div class="songs-song-wrap">
+			<nav class="songs">
+				<ul>
+					<li>song1</li>
+					<li>song2</li>
+					<li>song3</li>
+					<li>song4</li>
+					<li>song5</li>
+				</ul>
+			</nav>
+			<div class="song">
+				<form onsubmit="return false" autocomplete="off">
+					<div class="song__info-cover">
+						<div class="song__info">
+							<div class="song__header">
+								<div class="song__logo">
+									<span>曲の情報</span>
+								</div>
+								<div class="song__language">
+									<nav>
+										<ul>
+											<li>日本語</li>
+											<li>English</li>
+										</ul>
+									</nav>
+								</div>
+							</div>
+							<div class="song__name">
+								<label class="name">曲名：</label>
+								<input type="text">
+							</div>
+							<div class="song__artist">
+								<label class="artist">アーティスト：</label>
+								<input type="text">
+							</div>
+							<div class="song__album">
+								<label class="album">アルバム：</label>
+								<input type="text">
+							</div>
+							<div class="song_category">
+								<label class="category">ジャンル：</label>
+							<input type="text">
+							</div>
+							<div class="song__year">
+								<label class="year">年：</label>
+								<input type="text">
+							</div>
+						</div>
+						<div class="song__cover">
+							<img src="images/pinkguy.jpg" alt="アートワーク">
+							<input type="file" name="image" accept="image/png,image/jpeg,image" id="image1">
+							<label for="image1">ファイルを選択</label>
+						</div>
+					</div>
+					<div class="song__lyrics">
+						<label>歌詞</label>
+					<textarea name="" id="" cols="30" rows="10"></textarea>
+					</div>
+					
+				</form>
+			</div>
+		</div>
+	</div>
 <!-- global-containerのdiv -->
 </div>
+<!-- <script src="scripts/vendors/color-thief.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
 <script src="svgs/object-svgs.js"></script>
-<script src="scripts/vendors/TweenMax.min.js"></script>
-<script src="scripts/vendors/vue.min.js"></script>
 <script src="scripts/libs/addsvg.js"></script>
+<script src="scripts/libs/addEl.js"></script>
+<script src="scripts/libs/thumbnail.js"></script>
 <script src="scripts/libs/progress-bar.js"></script>
+<script src="scripts/libs/guiOpen.js"></script>
+<script src="scripts/libs/menu.js"></script>
+<script src="scripts/libs/cover.js"></script>
 </body>
 </html>

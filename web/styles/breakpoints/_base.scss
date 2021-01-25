@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;400&family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
 .font-sm {
 	font-size: 14px;
 }
@@ -11,13 +13,8 @@
 	font-size: 25px;
 }
 
-.flex {
-	display:flex;
-	flex-direction: column;
-}
-
 body {
-	font-family: "Kameron", "Noto Sans JP", sans-serif;
+	font-family: "Roboto", "Noto Sans JP", sans-serif;
 }
 
 h1 {
@@ -33,6 +30,14 @@ img {
 	outline: 0;
 }
 
+ul {
+	padding: 0
+}
+
+li {
+	list-style: none;
+}
+
 .svgAll {
 	display: none;
 }
@@ -41,10 +46,11 @@ img {
 	display: flex;
 }
 
+//header
 .header {
 	width: 30%;
-	height: 100vh;
-	background-color: #FAFBFD;
+	min-height: 100vh;
+	background-color: $headerWhite;
 
 	&__inner {
 		width: 90%;
@@ -58,9 +64,36 @@ img {
 		& > svg {
 			margin-right: 10px;
 			margin-bottom: 4px;
-			fill: red;
+			fill: $YoutubeRed;
 			height: 1.4em;
 			width: 1.4em;
+		}
+	}
+}
+
+.menu {
+	& > ul{
+		& > li {
+			cursor: pointer;
+			& > svg {
+				margin-right: 5px;
+			}
+			&:hover {
+				color: $cBlue;
+				& > svg {
+					fill: $cBlue;
+				}
+			}
+			&.active {
+				color: $cBlue;
+				& > svg {
+					fill: $cBlue;
+				}
+			}
+			& > .icon {
+				width: 15px;
+				height: 30px;
+			}
 		}
 	}
 }
@@ -74,7 +107,7 @@ img {
 .twitterContent {
 	@extend .font-sm;
 	height: 140px;
-	background: #FFF;
+	background: $cWhite;
 	border-radius: 20px;
 	margin-top: 10%;
 	margin-bottom: 10%;
@@ -103,8 +136,8 @@ img {
 		&__contact {
 			border: none;
 			font-size: .75em;
-			background-color: #1da1f2;
-			color: white;
+			background-color: $TwitterBlue;
+			color: $cWhite;
 			width: 60px;
 			height: 20px;
 			border-radius: 20px;
@@ -117,11 +150,10 @@ img {
 	}	
 }
 
-
 .supportContent {
 	@extend .font-sm;
 	height: 140px;
-	background: #FFF;
+	background: $cWhite;
 	border-radius: 20px;
 	margin-top: 10%;
 	margin-bottom: 10%;
@@ -137,7 +169,7 @@ img {
 		height: 50px;
 		width: 50px;
 		border-radius: 8px;
-		background-color: #28b2b1;
+		background-color: $cGreen;
 		font-size: 1.8em;
 		text-align: center;
 		line-height: 2.2em;
@@ -150,8 +182,8 @@ img {
 		&__support {
 			border: none;
 			font-size: .75em;
-			background-color: #28b2b1;
-			color: white;
+			background-color: $cGreen;
+			color: $cWhite;
 			width: 60px;
 			height: 20px;
 			border-radius: 20px;
@@ -166,7 +198,7 @@ img {
 .socialContent {
 	@extend .font-sm;
 	height: 70px;
-	background: #FFF;
+	background: $cWhite;
 	border-radius: 20px;
 	margin-top: 10%;
 	box-shadow: rgba(149, 157, 165, 0.1) 0px 8px 24px;
@@ -177,7 +209,6 @@ img {
 		&__ul {
 			padding: 0;
 			margin: 0;
-			list-style: none;
 			display: flex;
 			justify-content: space-between;
 		}
@@ -194,10 +225,9 @@ img {
 	}
 }
 
-
-
-
+//DLカード等があるページ
 .main {
+	display: none;
 	width: 100%;
 	padding-top: 2%;
 }
@@ -207,25 +237,31 @@ img {
 	display: flex;
 	justify-content: flex-end;
 	padding-right: 5%;
+	
 	&__button {
+		cursor: pointer;
 		width: 75px;
 		height: 35px;
-		border: solid 2px #126eff;
+		border: solid 2px $cBlue;
 		background-color: transparent;
 		border-radius: 35px;
 		box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 		display: flex;
 		line-height: 27px;
+		transition: box-shadow .5s;
+		&:hover {
+			box-shadow: none;
+		}
 		& > span {
 			&:nth-child(1) {
-				color: #126eff;
+				color: $cBlue;
 				margin-left: 18%;
 				font-size: 11px;
 			}
 			&:nth-child(2) {
 				width: 10px;
 				height: 2px;
-				background-color: #126eff;
+				background-color: $cBlue;
 				display: block;
 				transform: translate(3px, 12.5px) rotate(90deg);
 				border-radius: 50px;
@@ -233,7 +269,7 @@ img {
 			&:nth-child(3) {
 				width: 10px;
 				height: 2px;
-				background-color: #126eff;
+				background-color: $cBlue;
 				display: block;
 				transform: translate(-7px, 12px);
 				border-radius: 50px;
@@ -243,12 +279,104 @@ img {
 	
 }	
 
-
-
 .youtubeDownload {
 	width: 90%;
 	margin: 0 auto;
 	max-width: $contentMaxWidth;
+}
+
+.dlcardWrap {
+	display: flex;
+	
+}
+
+.fadeeffect {
+	opacity: 0;
+	transform: translate(0, 45px);
+	transition: all 500ms;
+}
+
+.showeffect {
+	opacity: 1;
+	transform: translate(0, 0);
+}
+
+.dlcard {
+	@extend .font-sm;
+	display:flex;
+	flex-direction: column;
+	position: relative;
+	height: 300px;
+	margin-bottom: 4%;
+
+	&__title {
+		top: 5%;
+		left: 11%;
+		color: $cWhite;
+		z-index: 10;
+		position: absolute;
+		& > svg {
+			fill: $cWhite;
+			height: $svgYoutube;
+			width: $svgYoutube + 2;
+		}
+	}
+	
+	&__videoName {
+		display: inline;
+		vertical-align: middle;
+	}
+
+	&__thumbnail {
+		position: absolute;
+		z-index: 0;
+		border-radius: 20px;
+		overflow: hidden;
+		height: 100%;
+		width: 100%;
+		&--cover {
+			opacity: 0.8;
+			position: absolute;
+			top:0;
+			left:0;
+			width: 100%;
+			height:100%;
+			/* 塗りつぶす */
+			background: linear-gradient(top, rgba(255, 255, 255, 0) 40%, rgb(230, 91, 126) 100%);
+		}
+
+		& > img {
+			object-fit: cover;
+			width: 100%;
+			height: 100%;
+
+		}
+	}
+	&__url {
+		width: 70%;
+		z-index: 11;
+		position: absolute;
+		bottom: 0;
+		bottom: 1%;
+		left: 50%;
+		transform: translateY(-50%) translateX(-50%);
+
+		& > input {
+			color: $cWhite;
+			&::placeholder {
+				color: rgba(255, 255, 255, .8);
+			}
+			&[type="url"] {
+				border: 1px solid $cWhite;
+				width: 100%;
+				outline: none;
+				line-height: 2px;
+				border-width: 0px 0px 2px 0px;
+				background-color: transparent;
+				}
+		}
+	}
+
 }
 
 .downloadButton {
@@ -265,15 +393,16 @@ img {
 	}
 	
 	&__circle {
+		cursor: pointer;
 		width: 100%;
 		transition: transform .5s;
-		color: white;
+		color: $cWhite;
 		border: none;
 		position: relative;
 		z-index: 11;
 		display: flex;
 		border-radius: 50px;
-		background: #126eff;
+		background: $cBlue;
 		align-items: center;
 		padding:6px 0px 6px 20px;
 		
@@ -324,7 +453,7 @@ img {
 	&.open {
 		width: 250px;
 		& .#{downloadButton}__bg {
-			background: #555;
+			background: $ProgressBg;
 			position: relative;
 			width: 100%;
 			height: 40px;
@@ -337,7 +466,7 @@ img {
 			position:absolute;
 			height: 100%;
 			border-radius: 5px;
-			background-color:#126eff;
+			background-color:$cBlue;
 			padding: 0;
 	
 		}
@@ -369,89 +498,205 @@ img {
 	}
 }
 
-
-.dlcardWrap {
-	display: flex;
-	flex-direction: column;
+.selectType {
+	&__button {
+		& > input[type="radio"] {
+			display: none;
+			&:checked + label:before {
+				border-color: $md-radio-checked-color;
+				animation: ripple 0.2s linear forwards;
+			}
+			&:checked + label:after {
+				transform: scale(1);
+			}
+		}
+		& > label {
+			display: inline-block;
+			min-height: $md-radio-size;
+			position: relative;
+			padding: 0 ($md-radio-size + 10px);
+			margin-bottom: 0;
+			cursor: pointer;
+			vertical-align: bottom;
+			&:before, &:after {
+				position: absolute;
+				content: '';
+				border-radius: 50%;
+				transition: all .3s ease;
+				transition-property: transform, border-color;
+			}
+			&:before {
+				left: 0;
+				top: 0;
+				width: $md-radio-size;
+				height: $md-radio-size;
+				border: 2px solid $md-radio-border-color;
+			}
+			&:after {
+				top: $md-radio-size / 2 - $md-radio-checked-size / 2;
+				left: $md-radio-size / 2 - $md-radio-checked-size / 2;
+				width:$md-radio-checked-size;
+				height:$md-radio-checked-size;
+				transform: scale(0);
+				background:$md-radio-checked-color;
+			}
+		}
+	}
 }
 
-.dlcard {
-	@extend .font-sm;
-	@extend .flex;	
-	position: relative;
-	height: 300px;
-	margin-bottom: 4%;
+//曲の情報を設定するページ
+.main2 {
+	display: none;
+	width: 100%;
+	padding-top: 2%;
+}
 
-	&__title {
-		top: 5%;
-		left: 11%;
-		color: $cWhite;
-		z-index: 10;
-		position: absolute;
-		& > svg {
-			fill: $cWhite;
-			height: $svgYoutube;
-			width: $svgYoutube + 2;
+.songs-song-wrap {
+	margin: auto 0;
+}
+
+.songs {
+	& > ul{
+		display: flex;
+		justify-content: center;
+		& > li {
+			display: block;
+			width: 10%;
+			border: solid 1px;
+			text-align: center;
+			
+			&:nth-child(n + 2):not(:nth-child(n + 5)) {
+				border-right: none;
+			}
+
+			&:first-child {
+				border-radius: 5px 0 0 5px;
+				border-right: none;
+			}
+			&:last-child {
+				border-radius: 0 5px 5px 0;
+			}
 		}
 	}
-	
-	&__videoName {
-		display: inline;
-		vertical-align: middle;
-	}
+}
 
+.song {
+	width: 70%;
+	margin: 0 auto;
+	margin-top: 10%;
+	&__header {
+		display: flex;
+		justify-content: space-between;
+	}
+	&__language {
+		width: 160px;
+		& ul {
+		display: flex;
+		justify-content: space-between;
+		}
+		& li {
+			width: 70px;
+			background-color: $cWhite;
+			border-radius: 50px;
+			text-align: center;
+			cursor: pointer;
+			font-size: 12px;
+			padding: 1ch;
+			
+		}
+	}
+	&__info-cover {
+		display: flex;
+		justify-content: space-between;
+	}
+	&__logo {
+		margin-bottom: 7%;
+		& span {
+			font-size: 25px;
+			color: $ProgressBg;
+			font-weight: bold;
+		}
+	}
+	&__info {
+		display: flex;
+		flex-direction: column;
+		background-color: $songInfobg;
+		border-radius: 24px;
+		width: 60%;
+		height: 280px;
+		padding: 2ch 4ch 4ch 4ch;
+		& label {
+			display: inline-block;
+			width: 130px;
+			text-align: right;
+		}
+
+		& input {
+			&[type="text"] {
+				border: 1px solid black;
+				border-radius: 3px;
+				background-color: transparent;
+				&:focus {
+					outline: none;
+					border-radius: 3px;
+					border: 1px $cBlue solid;
+				}
+			}
+			
+			
+			
+		}
 		
-	&__thumbnail {
-		position: absolute;
-		z-index: 0;
-		border-radius: 20px;
+	}
+	&__cover {
+		width: 200px;
+		height: 200px;
+		border-radius: 24px;
 		overflow: hidden;
-		height: 100%;
-		&::after {
-			opacity: 0.8;
-			position: absolute;
-			content:"";
-			top:0;
-			left:0;
-			width: 100%;
-			height:100%;
-			/* 塗りつぶす */
-			background: linear-gradient(top, rgba(255, 255, 255, 0) 40%, #ff74db 100%);
-		}
+		position: relative;
 
 		& > img {
-			object-fit: cover;
 			width: 100%;
 			height: 100%;
-
+			object-fit: cover;
+			position: absolute;
 		}
-	}
-	&__url {
-		width: 70%;
-		z-index: 11;
-		position: absolute;
-		bottom: 0;
-		bottom: 1%;
-		left: 50%;
-		transform: translateY(-50%) translateX(-50%);
-
-		& > input {
-			color: $cWhite;
-			&::placeholder {
-				color: rgba(255, 255, 255, .8);
+		& input{
+			&[type="file"] {
+				display: none;
 			}
-			&[type="url"] {
-				border: 1px solid white;
-				width: 100%;
-				outline: none;
-				line-height: 2px;
-				border-width: 0px 0px 2px 0px;
-				background-color: transparent;
-				}
+		}
+		& label {
+			background:$cWhite;
+			color: $cBlue;
+			font-size: 0.8rem;
+			padding: 8px 10px;
+			border-radius: 50px;
+			display: inline-block;
+			position: absolute;
+			cursor: pointer;
+			margin-right: 8px;
+			top: 75%;
+			left: 40%;
+			
+			&:hover {
+			  background:$cBlue;
+			  color: $cWhite;
+			  transition: 0.3s ease-out;
+			}
 		}
 	}
-
+	&__lyrics {
+		& label {
+			display: block;
+		}
+	}
 }
+
+.activateP {
+	display: block;
+}
+
 
 @keyframes kf-arrow-anime {
 	0%, 50%, 100% {
@@ -490,3 +735,15 @@ img {
 		opacity: 1;
 	}
 }
+
+@keyframes ripple {
+	0% {
+	  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.0);
+	}
+	50% { 
+	  box-shadow: 0px 0px 0px $md-radio-ripple-size rgba(0, 0, 0, 0.1);
+	}
+	100% {
+	  box-shadow: 0px 0px 0px $md-radio-ripple-size rgba(0, 0, 0, 0);
+	}
+  }

@@ -1,6 +1,8 @@
 @import "modules/variables";
 @import "modules/mixin";
 @import "breakpoints/base";
+@import "modules/loading";
+
 
 @media (min-width: 1024px) {
     @import "breakpoints/1024up";

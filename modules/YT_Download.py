@@ -1,19 +1,30 @@
 import os
+import re
 import eel
 import sys
 import time
 import ffmpeg
 import threading
+import urllib.parse
 from pytube import YouTube
+
+import meta
 
 class Downloader():
 	"""docstring for Youtubehq"""
-	def __init__(self, urls):
+	def __init__(self, urls, mode):
 		urls = [url for url in urls if url != '']
 		self.urls = urls
 		self.count = len(urls)
 		self.percent = {}
+		self.songDatas = {}
 		self.lock = threading.Lock()
+		self.mode = mode
+		if mode == '1':
+			self.number = 1
+		else:
+			self.number = 2
+		self.desktop_path = os.path.normpath(os.path.expanduser("~/Desktop"))
 
 	
 	def makelist(self, alltag):
@@ -44,8 +55,7 @@ class Downloader():
 		
 		return audios, videos
 
-	def select_mobile_v(self):#まずはmp4である事かつそのなかで一番大きい
-		videos = self.videos
+	def select_mobile_v(self, videos):#まずはmp4である事かつそのなかで一番大きい
 		hq_mobile_v = 0
 		for video in videos:
 			if video['mime_type'].split('/')[1] == 'mp4':
@@ -54,7 +64,7 @@ class Downloader():
 							hq_mobile_v = int(video['res'][:-1])
 							video_mobile = video
 		print(video_mobile)
-		self.video_hq = video_mobile
+		return video_mobile
 
 	
 	def select_hq_v(self, videos):
@@ -92,103 +102,142 @@ class Downloader():
 		current = ((stream.filesize - bytes_remaining)/stream.filesize)
 		with self.lock:
 			self.percent[threading.currentThread().getName()] = current*100
+
+	def remove_symbol(self, title):
+		# titleに入る余分な記号を取り除く
+		code_regex = re.compile('[!"#$%&\'\\\\()*+,-./:;<=>?@[\\]^_`{|}~「」〔〕“”〈〉『』【】＆＊・（）＄＃＠。、？！｀＋￥％]')
+		clean_title = code_regex.sub('', title)
+		title = re.sub(r'\s+', "_", clean_title)
+		return title
 		
-		
-	def download_audio(self, yt, audio_hq):
+	def download_audio(self, yt, audio_hq, title):
+		path = self.desktop_path
 		itag_a = audio_hq['itag']
 
-		if not os.path.exists('audio/webm'):
-			os.makedirs('audio/webm')
+		if not os.path.exists(path + '/audio/webm'):
+			os.makedirs(path + '/audio/webm')
 		# ここで音声をダウンロード
-		yt.streams.get_by_itag(itag_a).download('audio/webm')
+		yt.streams.get_by_itag(itag_a).download(path + '/audio/webm', filename=title)
 
-	def download_video(self, yt, video_hq):
+	def download_video(self, yt, video_hq, title):
+		path = self.desktop_path
 		itag_v = video_hq['itag']
 		
-		if not os.path.exists('video/original'):
-			os.makedirs('video/original')
+		if not os.path.exists(path + '/video/original'):
+			os.makedirs(path + '/video/original')
 		# ここで動画をダウンロード
-		yt.streams.get_by_itag(itag_v).download('video/original')
+		yt.streams.get_by_itag(itag_v).download(path + '/video/original', filename=title)
 
-
-	def join_audio_video(self, title):
-		video_hq = self.video_hq
-		audio_hq = self.audio_hq
-		mime_type_v = video_hq['mime_type']
-		mime_type_a = audio_hq['mime_type']
-		# titleの最後が.の場合は.を付けない。
-		if title[-1] != '.':
-			videopath = 'video/original/' + title + '.' + mime_type_v.split('/')[1]
-			audiopath = 'audio/webm/' + title + '.' + mime_type_a.split('/')[1]
-		else:
-			videopath = 'video/original/' + title + mime_type_v.split('/')[1]
-			audiopath = 'audio/webm/' + title + mime_type_a.split('/')[1]
-		
+	def opus_to_aac(self, path, title, audiopath):
 		# opus to aac
-		if not os.path.exists('audio/aac'):
-			os.mkdir('audio/aac')
+		if not os.path.exists(path + '/audio/aac'):
+			os.mkdir(path + '/audio/aac')
 
-		if title[-1] != '.':
-			title_aac = 'audio/aac/' + title + '.' + 'm4a'
-		else:
-			title_aac = 'audio/aac/' + title + 'm4a'
+		title_aac = path + '/audio/aac/' + title + '.' + 'm4a'
 		instream_a = ffmpeg.input(audiopath)
 		stream = ffmpeg.output(instream_a, title_aac, audio_bitrate=160000, acodec="aac")
 		ffmpeg.run(stream, overwrite_output=True)
 
+		return title_aac
+
+
+	def join_audio_video(self, video_hq, path, title, videopath, audiopath):		
+		# titleの最後が.の場合は.を付けない。もし最後がなら...の可能性もあるから正規表現で取り出した方がいいよ。
+		
+		
+
 		# join h264 and aac
 		if video_hq['acodec'] is None: #これのおかげで音付きの動画の場合はエンコードかからない。
-			if not os.path.exists('video/joined'):
-				os.mkdir('video/joined')
-			if title[-1] != '.':
-				title_join = 'video/joined/' + title + '.' + 'mp4'
-			else:
-				title_join = 'video/joined/' + title + 'mp4'
+			if not os.path.exists(path + '/video/joined'):
+				os.mkdir(path + '/video/joined')
+
+			title_join = path + '/video/joined/' + title + '.' + 'mp4'
 			instream_v = ffmpeg.input(videopath)
-			instream_a = ffmpeg.input(title_aac)
+			instream_a = ffmpeg.input(audiopath)
 			stream = ffmpeg.output(instream_v, instream_a, title_join, vcodec='copy', acodec='copy') #vcodec='h264'にすればエンコードしてくれる。
 			ffmpeg.run(stream, overwrite_output=True)
 	
 
 
 	def download(self, url):
-		
-		yt = YouTube(url)
+		path = self.desktop_path
+		qs = urllib.parse.urlparse(url).query
+		videoID = urllib.parse.parse_qs(qs)['v'][0]
+		url = f'https://www.youtube.com/watch?v={videoID}'
+		for i in range(10):
+			try:
+				yt = YouTube(url)
+			except RegexMatchError as e:
+				print('動画情報を取得できなかった。')
+			else:
+				print('上手く行きました。')
+				break
+
 		yt.register_on_progress_callback(self.show_progress_bar)
 		alltag = yt.streams
 		title = yt.title
 		print(title)
+		try:	
+			artist = yt.metadata[0]['Artist']
+			song = yt.metadata[0]['Song']
+			with self.lock:
+				self.songDatas[threading.currentThread().getName()] = meta.addMusicData(song, artist)
 
-		audios, videos = self.makelist(alltag)
-		audio_hq = self.select_hq_a(audios)
-		video_hq = self.select_hq_v(videos)
-		ta = threading.Thread(target=self.download_audio, args=[yt, audio_hq,])
-		tv = threading.Thread(target=self.download_video, args=[yt, video_hq,])
+			# デフォルトは英語情報を表示したいのでの文字列を渡す。
+			self.songDatas[threading.currentThread().getName()].send_songData('USA')
+		except KeyError:
+			print('取得出来なかった。')
 
-		ta.start()
-		tv.start()
-		ta.join()
-		tv.join()
-
+		title = self.remove_symbol(title)
 		
-		# self.join_audio_video(title)
+		audios, videos = self.makelist(alltag)
+		
+		audio_hq = self.select_hq_a(audios)
+		ta = threading.Thread(target=self.download_audio, args=[yt, audio_hq, title,])
+		ta.start()
+		
+		if self.mode == '2':
+			video_hq = self.select_mobile_v(videos)
+			print(f'ここあるよね：{video_hq}')
+			tv = threading.Thread(target=self.download_video, args=[yt, video_hq, title,])
+
+			tv.start()
+			tv.join()
+
+		if self.mode == '3':
+			video_hq = self.select_hq_v(videos)
+			tv = threading.Thread(target=self.download_video, args=[yt, video_hq, title,])
+
+			tv.start()
+			tv.join()
+
+		ta.join()
+
+		audiopath = path + '/audio/webm/' + title + '.' + audio_hq['mime_type'].split('/')[1]
+		# aacの音声ファイルのパスをもらう。
+		audiopath = self.opus_to_aac(path, title, audiopath)
+		if not self.mode == '1':
+			videopath = path + '/video/original/' + title + '.' + video_hq['mime_type'].split('/')[1]
+			self.join_audio_video(video_hq, path, title, videopath, audiopath)
 
 	def get_progress(self, threads):
 		while any(t.is_alive() for t in threads):
 			with self.lock:
-				percent = round(sum(self.percent.values()) / (self.count * 2))
+				percent = round(sum(self.percent.values()) / (self.count * self.number))
 				# sys.stdout.write('  {percent}%\r'.format(percent=percent))
 				eel.putProgress(percent)
-		print(f'  {percent}%', flush=True)
+			time.sleep(1.0)
+		# print(f'  {percent}%', flush=True)
+		eel.putProgress(100)
 
 
 	def multi_download(self):
 		global start
 		start = time.time()
 		downloads = []
+		join_audio_videos = []
 
 		for url in self.urls:
-			print(url)
 			t = threading.Thread(target=self.download, args=[url,])
 			t.start()
 			downloads.append(t)
@@ -200,7 +249,18 @@ class Downloader():
 			t.join()
 		
 		monitor_progress.join()
+		# print(self.titles)
+		# # ここに結合の処理を追加する。
+		# for title in self.titles:
+		# 	join_audio_video = threading.Thread(target=self.join_audio_video, args=(title,))
+		# 	join_audio_video.start()
+		# 	join_audio_videos.append(join_audio_video)
+		
+		# for join_audio_video in join_audio_videos:
+		# 	join_audio_video.join()
+
 		print('done')
+		eel.doneProgress()
 
 		time_of_script = time.time() - start
 		print('実行時間：{}'.format(time_of_script))
