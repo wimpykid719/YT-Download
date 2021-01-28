@@ -28,6 +28,8 @@ class ProgressBar {
 					urls.push(el.value)
 					});
 					let radioNodeList = this.DOM.form.type;
+					console.log('ここどうなってる')
+					console.log(radioNodeList);
 				//Pythonプログラムを実行する。
 				eel.dowload(urls, radioNodeList.value);
 			}
@@ -59,6 +61,8 @@ class ProgressBar {
 
 let progress = new ProgressBar();
 
+
+//Python側で呼び出される。
 eel.expose(putProgress)
 function putProgress(n) {
 	let DOM = {};

@@ -688,6 +688,7 @@ li {
   width: 10%;
   border: solid 1px;
   text-align: center;
+  cursor: pointer;
 }
 
 .songs > ul > li:nth-child(n + 2):not(:nth-child(n + 5)) {
@@ -701,6 +702,12 @@ li {
 
 .songs > ul > li:last-child {
   border-radius: 0 5px 5px 0;
+}
+
+.songs > ul > .selected {
+  background-color: #126eff;
+  color: #FFF;
+  border: none;
 }
 
 .song {
@@ -720,25 +727,6 @@ li {
 
 .song__language {
   width: 160px;
-}
-
-.song__language ul {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-}
-
-.song__language li {
-  width: 70px;
-  background-color: #FFF;
-  border-radius: 50px;
-  text-align: center;
-  cursor: pointer;
-  font-size: 12px;
-  padding: 1ch;
 }
 
 .song__info-cover {
@@ -768,7 +756,7 @@ li {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  background-color: #ececda;
+  background-color: #f2f7ff;
   border-radius: 24px;
   width: 60%;
   height: 280px;
@@ -791,6 +779,36 @@ li {
   outline: none;
   border-radius: 3px;
   border: 1px #126eff solid;
+}
+
+.song__language > nav > ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.song__language > nav > ul > li input[type="radio"] {
+  display: none;
+}
+
+.song__language > nav > ul > li input[type="radio"]:checked + label {
+  background-color: #82b4ff;
+  color: #074bb5;
+  -webkit-animation: ripple 0.2s linear forwards;
+          animation: ripple 0.2s linear forwards;
+}
+
+.song__language > nav > ul > li label {
+  width: 70px;
+  background-color: #FFF;
+  border-radius: 50px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 1ch;
 }
 
 .song__cover {

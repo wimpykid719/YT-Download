@@ -8,7 +8,7 @@ import threading
 import urllib.parse
 from pytube import YouTube
 
-import meta
+from modules import meta_song
 
 class Downloader():
 	"""docstring for Youtubehq"""
@@ -180,11 +180,13 @@ class Downloader():
 		try:	
 			artist = yt.metadata[0]['Artist']
 			song = yt.metadata[0]['Song']
+			songData = meta_song.addMusicData(song, artist)
 			with self.lock:
-				self.songDatas[threading.currentThread().getName()] = meta.addMusicData(song, artist)
+				"""
+				中身は 'URL': {{'JPN': {'name':..., 'airtist':..., }, 'USA': {'name':..., 'airtist':..., }}}
+				"""
+				self.songDatas[url] = songData.make_songData()
 
-			# デフォルトは英語情報を表示したいのでの文字列を渡す。
-			self.songDatas[threading.currentThread().getName()].send_songData('USA')
 		except KeyError:
 			print('取得出来なかった。')
 
@@ -260,6 +262,9 @@ class Downloader():
 		# 	join_audio_video.join()
 
 		print('done')
+		print(self.urls)
+		print(self.songDatas)
+		eel.addSongData(self.urls, self.songDatas)
 		eel.doneProgress()
 
 		time_of_script = time.time() - start

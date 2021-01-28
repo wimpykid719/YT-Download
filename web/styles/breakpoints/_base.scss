@@ -564,6 +564,7 @@ li {
 			width: 10%;
 			border: solid 1px;
 			text-align: center;
+			cursor: pointer;
 			
 			&:nth-child(n + 2):not(:nth-child(n + 5)) {
 				border-right: none;
@@ -576,6 +577,11 @@ li {
 			&:last-child {
 				border-radius: 0 5px 5px 0;
 			}
+		}
+		& > .selected {
+			background-color: $cBlue;
+			color: $cWhite;
+			border: none;
 		}
 	}
 }
@@ -590,20 +596,6 @@ li {
 	}
 	&__language {
 		width: 160px;
-		& ul {
-		display: flex;
-		justify-content: space-between;
-		}
-		& li {
-			width: 70px;
-			background-color: $cWhite;
-			border-radius: 50px;
-			text-align: center;
-			cursor: pointer;
-			font-size: 12px;
-			padding: 1ch;
-			
-		}
 	}
 	&__info-cover {
 		display: flex;
@@ -630,7 +622,6 @@ li {
 			width: 130px;
 			text-align: right;
 		}
-
 		& input {
 			&[type="text"] {
 				border: 1px solid black;
@@ -647,6 +638,33 @@ li {
 			
 		}
 		
+	}
+	&__language {
+		& > nav {
+			& > ul {
+				display: flex;
+				justify-content: space-between;
+				& > li {
+					& input[type="radio"] {
+						display: none;
+						&:checked + label {
+							background-color: $songRadio;
+							color: $songRadioText;
+							animation: ripple 0.2s linear forwards;
+						}
+					}
+					& label {
+						width: 70px;
+						background-color: $cWhite;
+						border-radius: 50px;
+						text-align: center;
+						cursor: pointer;
+						font-size: 12px;
+						padding: 1ch;
+					}
+				}
+			}
+		}
 	}
 	&__cover {
 		width: 200px;
