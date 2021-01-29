@@ -6,8 +6,6 @@ class menu {
 		this.DOM.Tags = document.querySelector('.main2');
 		this.DOM.songs = document.querySelector('.songs');
 		this.DOM.languageInputs = document.querySelectorAll('.language input[name="country"]')
-		// this.DOM.languageInputs.forEach(el => console.log(el))
-		console.log(this.DOM.languageInputs);
 		this._addEvent();
 	}
 
@@ -19,6 +17,7 @@ class menu {
 			activate.classList.remove('activateP')
 			pageClass.add('activateP');
 			if(page == 'Tags' && urlsFromPython && songDatasFromPython) {
+				//ここで新しくインスタンスを生成して変数に格納してるの注意
 				this.songDatas = new songDatas(urlsFromPython, songDatasFromPython);
 			}
 		}
@@ -41,17 +40,23 @@ class menu {
 		}
 	}
 
+	//songDataLaungageを似てるから統合したい。
 	choseSongData(clickedElemnt) {
-		let selectedValue = '1'
-		this.DOM.languageInputs.forEach(el => {
-			if(el.checked) {
-				selectedValue = el.checked
-			}
-		});
 		let song = clickedElemnt.textContent;
 		let songNumber = Number(song.slice(-1)) - 1;
-		let songData = songDatasFromPython[urlsFromPython[songNumber]]['USA']
-		this.songDatas.changeFormData(songData);
+		let selectedValue = this.songDatas.songDatasDict[this.songDatas.urls[songNumber]]['language']
+		if(selectedValue == '1') {
+			let EN = document.querySelector('#EN');
+			EN.checked = true;
+			let songData = this.songDatas.songDatasDict[this.songDatas.urls[songNumber]]['USA']
+			this.songDatas.changeFormData(songData);
+		}else {
+			let JPN = document.querySelector('#JPN');
+			JPN.checked = true;
+			let songData = this.songDatas.songDatasDict[this.songDatas.urls[songNumber]]['JPN']
+			this.songDatas.changeFormData(songData);
+		}
+		
 
 	}
 
@@ -71,11 +76,15 @@ class menu {
 		let selected = document.querySelector('.selected').textContent;
 		let songNumber = Number(selected.slice(-1)) - 1;
 		let changedElemt = elm.target;
+
 		if(changedElemt.value == '1') {
-			let songData = songDatasFromPython[urlsFromPython[songNumber]]['USA']
+			let songData = this.songDatas.songDatasDict[this.songDatas.urls[songNumber]]['USA'];
+			this.songDatas.songDatasDict[this.songDatas.urls[songNumber]]['language'] = '1'
 			this.songDatas.changeFormData(songData);
+			this.songDatas
 		} else {
-			let songData = songDatasFromPython[urlsFromPython[songNumber]]['JPN']
+			let songData = this.songDatas.songDatasDict[this.songDatas.urls[songNumber]]['JPN'];
+			this.songDatas.songDatasDict[this.songDatas.urls[songNumber]]['language'] = '2'
 			this.songDatas.changeFormData(songData);
 		}
 		
@@ -91,11 +100,12 @@ class menu {
 	}
 }
 
-new menu();
+test = new menu();
 
 class songDatas {
 	constructor(urls, songDatasDict) {
 		this.songDatasDict = songDatasDict;
+		this.urls = urls;
 		this.DOM = {};
 		this.DOM.nameInput = document.querySelector('.song__name input');
 		this.DOM.artistInput = document.querySelector('.song__artist input');
@@ -103,20 +113,30 @@ class songDatas {
 		this.DOM.categoryInput = document.querySelector('.song_category input');
 		this.DOM.yearInput = document.querySelector('.song__year input');
 		//フォームに最初に登録したURLの情報を表示しておく。
-		const songDataEn1 = this.songDatasDict[urls[0]]['USA']
+		//ここでエラーが出ることがあったタイミングの問題か？？？
+		//URLが原因だった。
+		const songDataEn1 = this.songDatasDict[this.urls[0]]['USA']
+		this.urls.forEach( url => {
+			this.songDatasDict[url]['language'] = '1'
+		});
+		console.log(this.songDatasDict)
 		this.changeFormData(songDataEn1);
 		
 	}
 
 	changeFormData(songData) {
-		console.log('ここ')
-		console.log(songData)
-		if(Object.keys(songData)){
+		if(!Object.keys(songData).length == 0){
 			this.DOM.nameInput.value = songData['name'];
 			this.DOM.artistInput.value = songData['artist'];
 			this.DOM.albumInput.value = songData['album'];
 			this.DOM.categoryInput.value = songData['category'];
 			this.DOM.yearInput.value = songData['year'];
+		} else {
+			this.DOM.nameInput.value = "";
+			this.DOM.artistInput.value = "";
+			this.DOM.albumInput.value = "";
+			this.DOM.categoryInput.value = "";
+			this.DOM.yearInput.value = "";
 		}
 	}
 }

@@ -22,14 +22,11 @@ class ProgressBar {
 		if(this.DOM.container.classList.contains('open')){
 			this.DOM.icon.style.display = 'none';
 			this.DOM.progress.style.display = 'block';
-			console.log('付けました。')
 			if(this.DOM.inputURL[0].value){
 				this.DOM.inputURL.forEach((el) => {
 					urls.push(el.value)
 					});
 					let radioNodeList = this.DOM.form.type;
-					console.log('ここどうなってる')
-					console.log(radioNodeList);
 				//Pythonプログラムを実行する。
 				eel.dowload(urls, radioNodeList.value);
 			}
@@ -75,7 +72,6 @@ function putProgress(n) {
 
 eel.expose(doneProgress)
 function doneProgress() {
-	console.log(progress.DOM.icon);
 	progress.DOM.container.classList.remove('open');
 	progress.DOM.icon.style.display = '';
 	progress.DOM.progress.style.display = 'none';

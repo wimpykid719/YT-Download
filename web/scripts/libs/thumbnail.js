@@ -36,7 +36,6 @@ class thumbnail {
 
 	imgRGB(thumbnailIMG) {
 		const thumbnailClassName = this.DOM.dlcardCover.classList[1];
-		console.log(thumbnailClassName);
 		const colorThief = new ColorThief();
 		const thumColor = colorThief.getColor(thumbnailIMG.target);
 		this.CSS.insertRule(`.${thumbnailClassName} {background: -webkit-gradient(linear, left top, left bottom, color-stop(40%, rgba(255, 255, 255, 0)), to(rgb(${thumColor[0]}, ${thumColor[1]}, ${thumColor[2]})));}`, this.CSS.cssRules.length);
@@ -44,7 +43,6 @@ class thumbnail {
 	}
 
 	loading(dlcard, thumbnailClassName) {
-		console.log(dlcard.querySelector(`.${thumbnailClassName} > .donutSpinner`))
 		dlcard.querySelector(`.${thumbnailClassName} > .donutSpinner`).classList.toggle('open');
 	}
 

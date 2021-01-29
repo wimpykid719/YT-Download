@@ -13,8 +13,15 @@ from modules import meta_song
 class Downloader():
 	"""docstring for Youtubehq"""
 	def __init__(self, urls, mode):
-		urls = [url for url in urls if url != '']
-		self.urls = urls
+		fix_urls = []
+		for url in urls:
+			if url != '':
+				qs = urllib.parse.urlparse(url).query
+				videoID = urllib.parse.parse_qs(qs)['v'][0]
+				url = f'https://www.youtube.com/watch?v={videoID}'
+				fix_urls += [url]
+		print(f'直したurls：{fix_urls}')
+		self.urls = fix_urls
 		self.count = len(urls)
 		self.percent = {}
 		self.songDatas = {}
@@ -161,9 +168,6 @@ class Downloader():
 
 	def download(self, url):
 		path = self.desktop_path
-		qs = urllib.parse.urlparse(url).query
-		videoID = urllib.parse.parse_qs(qs)['v'][0]
-		url = f'https://www.youtube.com/watch?v={videoID}'
 		for i in range(10):
 			try:
 				yt = YouTube(url)
