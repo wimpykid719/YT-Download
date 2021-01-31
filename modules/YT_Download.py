@@ -4,6 +4,7 @@ import eel
 import sys
 import time
 import ffmpeg
+import requests
 import threading
 import urllib.parse
 from pytube import YouTube
@@ -190,9 +191,37 @@ class Downloader():
 				中身は 'URL': {{'JPN': {'name':..., 'airtist':..., }, 'USA': {'name':..., 'airtist':..., }}}
 				"""
 				self.songDatas[url] = songData.make_songData()
+				self.songDatas[url]['title'] = title 
+				artwork_url = ''
+				file_name = ''
+				file_path = ''
+				
+				if 'artworkUrl' in self.songDatas[url]['JPN']:
+					artwork_url = self.songDatas[url]['JPN']['artworkUrl']
+					name = self.songDatas[url]['JPN']['name']
+					artist = self.songDatas[url]['JPN']['artist']
+					file_name = f'{name}_{artist}'
+					
 
-		except KeyError:
-			print('取得出来なかった。')
+				if 'artworkUrl' in self.songDatas[url]['USA']:
+					artwork_url = self.songDatas[url]['USA']['artworkUrl']
+					name = self.songDatas[url]['USA']['name']
+					artist = self.songDatas[url]['USA']['artist']
+					file_name = f'{name}_{artist}'
+
+				print(artwork_url)
+				print(file_name)
+				
+				if artwork_url:
+					artwork_path = f'web/images/artwork/{file_name}.jpg'
+					res = requests.get(artwork_url, stream=True)
+					if res.status_code == 200:
+						with open(artwork_path, 'wb') as f:
+							f.write(res.content)
+						self.songDatas[url]['artwork_path'] = artwork_path.replace('web/', '')
+			
+		except KeyError as e:
+			print(e)
 
 		title = self.remove_symbol(title)
 		

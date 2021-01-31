@@ -4,9 +4,22 @@ class menu {
 		this.DOM.menu = document.querySelector('.menu');
 		this.DOM.Download = document.querySelector('.main');
 		this.DOM.Tags = document.querySelector('.main2');
-		this.DOM.songs = document.querySelector('.songs');
+		this.DOM.numerator = document.querySelector('.numerator');
+		this.DOM.title = document.querySelector('.datatitle__name');
+		this.DOM.fraction = document.querySelector('.fraction');
+		this.DOM.paginationPrevious = document.querySelector('.pagination__previous');
+		this.DOM.paginationNext = document.querySelector('.pagination__next');
+
 		this.DOM.languageInputs = document.querySelectorAll('.language input[name="country"]')
 		this._addEvent();
+	}
+
+	addZero(number) {
+		let zeroNumber = '';
+		if(number <= 10) {
+			zeroNumber = '0' + String(number);
+		}
+		return zeroNumber
 	}
 
 	chosePage(page) {
@@ -19,6 +32,10 @@ class menu {
 			if(page == 'Tags' && urlsFromPython && songDatasFromPython) {
 				//ここで新しくインスタンスを生成して変数に格納してるの注意
 				this.songDatas = new songDatas(urlsFromPython, songDatasFromPython);
+				const title = this.songDatas.songDatasDict[this.songDatas.urls[0]]['title']
+				this.titleShow(title);
+				this.DOM.numerator.innerHTML = '01';
+				this.DOM.fraction.innerHTML = this.addZero(this.songDatas.urls.length);
 			}
 		}
 	}
@@ -40,60 +57,77 @@ class menu {
 		}
 	}
 
-	//songDataLaungageを似てるから統合したい。
-	choseSongData(clickedElemnt) {
-		let song = clickedElemnt.textContent;
-		let songNumber = Number(song.slice(-1)) - 1;
-		let selectedValue = this.songDatas.songDatasDict[this.songDatas.urls[songNumber]]['language']
+	titleShow(title) {
+		this.DOM.title.innerHTML = title;
+		
+	}
+
+	currentPageNumber() {
+		let numberStr = this.DOM.numerator.textContent;
+		if(numberStr.slice(0) == '0') {
+			numberStr = numberStr.slice(-1);
+		}
+		return Number(numberStr)
+	}
+
+	songPageChange(pageNumber) {
+		let selectedValue = this.songDatas.songDatasDict[this.songDatas.urls[pageNumber]]['language']
+		const title = this.songDatas.songDatasDict[this.songDatas.urls[pageNumber]]['title']
+		let songData = {}
 		if(selectedValue == '1') {
 			let EN = document.querySelector('#EN');
 			EN.checked = true;
-			let songData = this.songDatas.songDatasDict[this.songDatas.urls[songNumber]]['USA']
-			this.songDatas.changeFormData(songData);
-		}else {
+			songData = this.songDatas.songDatasDict[this.songDatas.urls[pageNumber]]['USA']
+		} else {
 			let JPN = document.querySelector('#JPN');
 			JPN.checked = true;
-			let songData = this.songDatas.songDatasDict[this.songDatas.urls[songNumber]]['JPN']
-			this.songDatas.changeFormData(songData);
+			songData = this.songDatas.songDatasDict[this.songDatas.urls[pageNumber]]['JPN']
 		}
-		
-
+		this.titleShow(title);
+		this.songDatas.changeFormData(songData);
+		this.songDatas.changeArtwork(this.songDatas.songDatasDict[this.songDatas.urls[pageNumber]]['artwork_path'])
 	}
 
-	songDataChange(elm) {
-		let clickedElemnt = elm.target
-		const songs = clickedElemnt.closest('.songs');
-		const active = songs.querySelector('.selected');
+	nextPage() {
+		const urlsAmount = this.songDatas.urls.length;
+		const pageNumber = this.currentPageNumber();
+		const nextPageNumber = pageNumber + 1;
+		if (pageNumber < urlsAmount) {
+			this.songPageChange(pageNumber);
+			this.DOM.numerator.innerHTML = this.addZero(nextPageNumber);
+		}
+	}
 
-		if(clickedElemnt.tagName == 'LI') {
-			active.classList.remove('selected');
-			clickedElemnt.classList.add('selected');
-			this.choseSongData(clickedElemnt);
+	previousPage() {
+		const pageNumber = this.currentPageNumber();
+		const previousPageNumber = pageNumber - 1;
+		if(!(pageNumber <= 1)) {
+			this.songPageChange(pageNumber - 2);
+			this.DOM.numerator.innerHTML = this.addZero(previousPageNumber);
 		}
 	}
 
 	songDataLaungage(elm) {
-		let selected = document.querySelector('.selected').textContent;
-		let songNumber = Number(selected.slice(-1)) - 1;
+		let songNumber = this.currentPageNumber() - 1;
 		let changedElemt = elm.target;
-
+		let songData = {}
 		if(changedElemt.value == '1') {
-			let songData = this.songDatas.songDatasDict[this.songDatas.urls[songNumber]]['USA'];
+			songData = this.songDatas.songDatasDict[this.songDatas.urls[songNumber]]['USA'];
 			this.songDatas.songDatasDict[this.songDatas.urls[songNumber]]['language'] = '1'
-			this.songDatas.changeFormData(songData);
-			this.songDatas
 		} else {
-			let songData = this.songDatas.songDatasDict[this.songDatas.urls[songNumber]]['JPN'];
+			songData = this.songDatas.songDatasDict[this.songDatas.urls[songNumber]]['JPN'];
 			this.songDatas.songDatasDict[this.songDatas.urls[songNumber]]['language'] = '2'
-			this.songDatas.changeFormData(songData);
 		}
+		this.songDatas.changeFormData(songData);
+
 		
 	}
 	
 
 	_addEvent() {
 		this.DOM.menu.addEventListener("click", this.pageChange.bind(this));
-		this.DOM.songs.addEventListener("click", this.songDataChange.bind(this));
+		this.DOM.paginationPrevious.addEventListener("click", this.previousPage.bind(this));
+		this.DOM.paginationNext.addEventListener("click", this.nextPage.bind(this));
 		this.DOM.languageInputs.forEach(input => input.addEventListener("change", this.songDataLaungage.bind(this)));
 		
 
@@ -112,6 +146,8 @@ class songDatas {
 		this.DOM.albumInput = document.querySelector('.song__album input');
 		this.DOM.categoryInput = document.querySelector('.song_category input');
 		this.DOM.yearInput = document.querySelector('.song__year input');
+		this.DOM.artworkImg = document.querySelector('.song__cover > img')
+
 		//フォームに最初に登録したURLの情報を表示しておく。
 		//ここでエラーが出ることがあったタイミングの問題か？？？
 		//URLが原因だった。
@@ -119,13 +155,18 @@ class songDatas {
 		this.urls.forEach( url => {
 			this.songDatasDict[url]['language'] = '1'
 		});
-		console.log(this.songDatasDict)
 		this.changeFormData(songDataEn1);
+		this.changeArtwork(this.songDatasDict[this.urls[0]]['artwork_path']);
 		
 	}
 
+	changeArtwork(path) {
+		this.DOM.artworkImg.src = path;
+	}
+
+
 	changeFormData(songData) {
-		if(!Object.keys(songData).length == 0){
+		if(!(Object.keys(songData).length == 0)){
 			this.DOM.nameInput.value = songData['name'];
 			this.DOM.artistInput.value = songData['artist'];
 			this.DOM.albumInput.value = songData['album'];

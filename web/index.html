@@ -85,7 +85,7 @@
 					<div class="dlcard fadeeffect">
 						<div class="dlcard__title">
 							<svg class="icon icon-youtube"><use xlink:href="#icon-youtube2"></use></svg>
-							<div class="dlcard__videoName">Supreme bot</div>
+							<div class="dlcard__videoName"></div>
 						</div>
 						<div class="dlcard__thumbnail">
 							<img src="images/error.png" alt="">
@@ -101,7 +101,7 @@
 					<div class="dlcard fadeeffect">
 						<div class="dlcard__title">
 							<svg class="icon icon-youtube"><use xlink:href="#icon-youtube2"></use></svg>
-							<div class="dlcard__videoName">Supreme bot</div>
+							<div class="dlcard__videoName"></div>
 						</div>
 						<div class="dlcard__thumbnail">
 							<img src="images/error.png" alt="">
@@ -151,15 +151,22 @@
 	</div>
 	<div class="main2">
 		<div class="songs-song-wrap">
-			<nav class="songs">
-				<ul>
-					<li class="selected">song1</li>
-					<li>song2</li>
-					<li>song3</li>
-					<li>song4</li>
-					<li>song5</li>
-				</ul>
-			</nav>
+			<div class="title-pagination-wrap">
+				<div class="datatitle">
+					<h2 class="datatitle__name">タイトル</h2>
+				</div>
+				<div class="pagination">
+					<div class="pagination__number">
+						<span class="numerator">00</span>
+						<span>/</span>
+						<span class="fraction">00</span>
+					</div>
+					<div class="pagination__buttons">
+						<button class="pagination__previous"></button>
+						<button class="pagination__next"></button>
+					</div>
+				</div>
+			</div>
 			<div class="song">
 				<form onsubmit="return false" autocomplete="off">
 					<div class="song__info-cover">

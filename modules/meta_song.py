@@ -1,6 +1,7 @@
 import requests
 import json
 import asyncio
+import urllib.parse
 from mutagen.mp4 import MP4
 
 # yt = YouTube("https://www.youtube.com/watch?v=3hPI3xjsNKE")
@@ -51,24 +52,30 @@ class addMusicData():
 					datasJp.append(data)
 				else:
 					datasEn.append(data)
-					print(f'ここで英語：{datasEn}')
 		
 		return datasJp, datasEn
 	
 	def take_some_song_info(self, songData):
 		data = songData[0]
+		url = data['artworkUrl100']
+		r = urllib.parse.urlparse(url)
+		r = r.path.split('/')
+		last_path = r.pop()
+
 		songName = data['trackName']
 		artistName = data['artistName']
 		album = data['collectionName'] 
 		category = data['primaryGenreName']
 		year = data['releaseDate'][0:4]
+		artworkUrl1000x1000 = url.replace(last_path, '1000x1000bb.jpg')
+
 		
-		return songName, artistName, album, category, year
+		return songName, artistName, album, category, year, artworkUrl1000x1000
 	
-	def make_songData_dic(self, songName, artistName, album, category, year):
-		song_n_a_a_c_y = {}
-		song_n_a_a_c_y = {'name': songName, 'artist': artistName, 'album': album, 'category': category, 'year': year}
-		return song_n_a_a_c_y
+	def make_songData_dic(self, songName, artistName, album, category, year, artworkUrl1000x1000):
+		song_n_a_a_c_y_a = {}
+		song_n_a_a_c_y_a = {'name': songName, 'artist': artistName, 'album': album, 'category': category, 'year': year, 'artworkUrl': artworkUrl1000x1000}
+		return song_n_a_a_c_y_a
 
 	def make_songData(self):
 		songData = {}

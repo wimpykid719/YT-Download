@@ -674,46 +674,87 @@ li {
   margin: auto 0;
 }
 
-.songs > ul {
+.title-pagination-wrap {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 3ch;
 }
 
-.songs > ul > li {
-  display: block;
-  width: 10%;
-  border: solid 1px;
+.datatitle {
+  width: 70%;
+}
+
+.datatitle__name {
+  font-weight: 900;
+  font-size: 40px;
+}
+
+.numerator {
+  color: #126eff;
+}
+
+.pagination {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 160px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.pagination__number {
+  background-color: #FAFBFD;
+  border-radius: 50px;
+  width: 100px;
   text-align: center;
+  height: 30px;
+  line-height: 30px;
+}
+
+.pagination__buttons {
+  width: 35px;
+  height: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.pagination__previous {
+  width: 13px;
+  height: 13px;
+  border: solid 1px black;
+  border-style: none none solid solid;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+  background-color: transparent;
   cursor: pointer;
 }
 
-.songs > ul > li:nth-child(n + 2):not(:nth-child(n + 5)) {
-  border-right: none;
-}
-
-.songs > ul > li:first-child {
-  border-radius: 5px 0 0 5px;
-  border-right: none;
-}
-
-.songs > ul > li:last-child {
-  border-radius: 0 5px 5px 0;
-}
-
-.songs > ul > .selected {
-  background-color: #126eff;
-  color: #FFF;
-  border: none;
+.pagination__next {
+  width: 13px;
+  height: 13px;
+  border: solid 1px black;
+  border-style: solid solid none none;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+  background-color: transparent;
+  cursor: pointer;
 }
 
 .song {
   width: 70%;
   margin: 0 auto;
-  margin-top: 10%;
 }
 
 .song__header {

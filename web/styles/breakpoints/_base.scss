@@ -554,42 +554,70 @@ li {
 .songs-song-wrap {
 	margin: auto 0;
 }
+.title-pagination-wrap {
+	display: flex;
+	justify-content: space-between;
+	padding: 3ch;
+}
 
-.songs {
-	& > ul{
+.datatitle {
+	width: 70%;
+	&__name {
+		font-weight: 900;
+		font-size: 40px;
+	}
+}
+
+.numerator {
+	color: $cBlue;
+}
+.pagination {
+	display: flex;
+	width: 160px;
+	justify-content: space-between;
+	&__number {
+		background-color: $headerWhite;
+		border-radius: 50px;
+		width: 100px;
+		text-align: center;
+		height: 30px;
+		line-height: 30px;
+	}
+
+	&__buttons {
+		width: 35px;
+		height: 30px;
 		display: flex;
-		justify-content: center;
-		& > li {
-			display: block;
-			width: 10%;
-			border: solid 1px;
-			text-align: center;
-			cursor: pointer;
-			
-			&:nth-child(n + 2):not(:nth-child(n + 5)) {
-				border-right: none;
-			}
+		justify-content: space-between;
+		align-items: center;
+		
+	}
+	&__previous {
+		width: 13px;
+		height: 13px;
+		border: solid 1px black;
+		border-style: none none solid solid;
+		transform: rotate(45deg);
+		background-color: transparent;
+		cursor: pointer;
 
-			&:first-child {
-				border-radius: 5px 0 0 5px;
-				border-right: none;
-			}
-			&:last-child {
-				border-radius: 0 5px 5px 0;
-			}
-		}
-		& > .selected {
-			background-color: $cBlue;
-			color: $cWhite;
-			border: none;
-		}
+	}
+	&__next {
+		width: 13px;
+		height: 13px;
+		border: solid 1px black;
+		border-style: solid solid none none;
+		transform: rotate(45deg);
+		background-color: transparent;
+		cursor: pointer;
+
+
 	}
 }
 
 .song {
 	width: 70%;
 	margin: 0 auto;
-	margin-top: 10%;
 	&__header {
 		display: flex;
 		justify-content: space-between;
