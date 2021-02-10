@@ -11,6 +11,9 @@ class menu {
 		this.DOM.paginationNext = document.querySelector('.pagination__next');
 
 		this.DOM.languageInputs = document.querySelectorAll('.language input[name="country"]')
+		this.DOM.dummy = document.querySelector('.song__dummy');
+		this.DOM.lyricArea = document.querySelector('.song__lyrics textarea');
+
 		this._addEvent();
 	}
 
@@ -86,6 +89,7 @@ class menu {
 		this.titleShow(title);
 		this.songDatas.changeFormData(songData);
 		this.songDatas.changeArtwork(this.songDatas.songDatasDict[this.songDatas.urls[pageNumber]]['artwork_path'])
+		this.songDatas.changeLyric(this.songDatas.songDatasDict[this.songDatas.urls[pageNumber]]['lyric'])
 	}
 
 	nextPage() {
@@ -122,6 +126,10 @@ class menu {
 
 		
 	}
+
+	flexTextarea(elm) {
+		this.DOM.dummy.textContent = elm.target.value + '\u200b'
+	}
 	
 
 	_addEvent() {
@@ -129,6 +137,7 @@ class menu {
 		this.DOM.paginationPrevious.addEventListener("click", this.previousPage.bind(this));
 		this.DOM.paginationNext.addEventListener("click", this.nextPage.bind(this));
 		this.DOM.languageInputs.forEach(input => input.addEventListener("change", this.songDataLaungage.bind(this)));
+		this.DOM.lyricArea.addEventListener('input', this.flexTextarea.bind(this))
 		
 
 	}
@@ -146,7 +155,10 @@ class songDatas {
 		this.DOM.albumInput = document.querySelector('.song__album input');
 		this.DOM.categoryInput = document.querySelector('.song_category input');
 		this.DOM.yearInput = document.querySelector('.song__year input');
-		this.DOM.artworkImg = document.querySelector('.song__cover > img')
+		this.DOM.artworkImg = document.querySelector('.song__cover > img');
+		this.DOM.lyricArea = document.querySelector('.song__lyrics textarea');
+		this.DOM.dummy = document.querySelector('.song__dummy');
+		
 
 		//フォームに最初に登録したURLの情報を表示しておく。
 		//ここでエラーが出ることがあったタイミングの問題か？？？
@@ -157,11 +169,19 @@ class songDatas {
 		});
 		this.changeFormData(songDataEn1);
 		this.changeArtwork(this.songDatasDict[this.urls[0]]['artwork_path']);
+		this.changeLyric(this.songDatasDict[this.urls[0]]['lyric'])
 		
 	}
 
 	changeArtwork(path) {
 		this.DOM.artworkImg.src = path;
+	}
+
+	changeLyric(lyric) {
+		if(lyric.length >= 0){
+			this.DOM.dummy.textContent = lyric + '\u200b';
+			this.DOM.lyricArea.value = lyric;
+		}
 	}
 
 

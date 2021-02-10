@@ -452,7 +452,7 @@ li {
 
 	&.open {
 		width: 250px;
-		& .#{downloadButton}__bg {
+		& #{$downloadButton}__bg {
 			background: $ProgressBg;
 			position: relative;
 			width: 100%;
@@ -462,7 +462,7 @@ li {
 			display: block;
 			border-radius: 5px;
 		}
-		& .#{downloadButton}__circle{
+		& #{$downloadButton}__circle{
 			position:absolute;
 			height: 100%;
 			border-radius: 5px;
@@ -470,11 +470,11 @@ li {
 			padding: 0;
 	
 		}
-		& .#{downloadButton}__text {
+		& #{$downloadButton}__text {
 			display: none;
 		}
 
-		& .#{downloadButton}__icon {
+		& #{$downloadButton}__icon {
 			display: none;
 		}
 
@@ -628,6 +628,8 @@ li {
 	&__info-cover {
 		display: flex;
 		justify-content: space-between;
+		margin-bottom: 10%;
+
 	}
 	&__logo {
 		margin-bottom: 7%;
@@ -730,12 +732,76 @@ li {
 			  color: $cWhite;
 			  transition: 0.3s ease-out;
 			}
+			
 		}
 	}
+	&__dummy {
+		overflow: hidden;
+		visibility: hidden;
+		box-sizing: border-box;
+		padding: 5px 15px;
+		min-height: 120px;
+		white-space: pre-wrap;
+		word-wrap: break-word;
+		overflow-wrap: break-word;
+		border: 2px solid;
+	}
+
 	&__lyrics {
-		& label {
+		& > label {
 			display: block;
+			font-size: 25px;
 		}
+	}
+
+	&__textarea {
+		position: relative;
+		font-size: 1rem;
+		line-height: 1.8;
+
+		
+		
+		& textarea {
+			position: absolute;
+			top: 0;
+			left: 0;
+			box-sizing: border-box;
+			padding: 5px 15px;
+			width: 100%;
+			height: 100%;
+			background-color: transparent;
+			border-radius: 24px;
+			resize: none;
+			border-color: transparent;
+			&:hover {
+				border: solid 2px $cBlue;
+				
+			}
+			&:focus {
+				outline: none;
+				border: solid 2px $cBlue;
+				border-radius: 24px;
+
+
+			}
+		}
+	}
+}
+
+.save {
+	&__button {
+		display: block;
+		background-color: $cBlue;
+		width: 120px;
+		height: 40px;
+		border: none;
+		border-radius: 50px;
+		color: $cWhite;
+		cursor: pointer;
+		margin: auto;
+		
+		
+
 	}
 }
 

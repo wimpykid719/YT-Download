@@ -777,6 +777,7 @@ li {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  margin-bottom: 10%;
 }
 
 .song__logo {
@@ -893,8 +894,65 @@ li {
   transition: 0.3s ease-out;
 }
 
-.song__lyrics label {
+.song__dummy {
+  overflow: hidden;
+  visibility: hidden;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 5px 15px;
+  min-height: 120px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  border: 2px solid;
+}
+
+.song__lyrics > label {
   display: block;
+  font-size: 25px;
+}
+
+.song__textarea {
+  position: relative;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.song__textarea textarea {
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 5px 15px;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border-radius: 24px;
+  resize: none;
+  border-color: transparent;
+}
+
+.song__textarea textarea:hover {
+  border: solid 2px #126eff;
+}
+
+.song__textarea textarea:focus {
+  outline: none;
+  border: solid 2px #126eff;
+  border-radius: 24px;
+}
+
+.save__button {
+  display: block;
+  background-color: #126eff;
+  width: 120px;
+  height: 40px;
+  border: none;
+  border-radius: 50px;
+  color: #FFF;
+  cursor: pointer;
+  margin: auto;
 }
 
 .activateP {

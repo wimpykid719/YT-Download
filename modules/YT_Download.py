@@ -10,6 +10,7 @@ import urllib.parse
 from pytube import YouTube
 
 from modules import meta_song
+from modules import lyrics
 
 class Downloader():
 	"""docstring for Youtubehq"""
@@ -185,17 +186,43 @@ class Downloader():
 		try:	
 			artist = yt.metadata[0]['Artist']
 			song = yt.metadata[0]['Song']
+			
+			# artist・song名に空白以外の区切りがある場合は取り除く。
+			artist = artist.replace(',', '')
+			song = song.replace(',', '')
 			songData = meta_song.addMusicData(song, artist)
+
+			
 			with self.lock:
 				"""
-				中身は 'URL': {{'JPN': {'name':..., 'airtist':..., }, 'USA': {'name':..., 'airtist':..., }}}
+				中身は 'URL': {{'JPN': {'name':..., 'artist':..., }, 'USA': {'name':..., 'artist':..., }}}
 				"""
 				self.songDatas[url] = songData.make_songData()
-				self.songDatas[url]['title'] = title 
+				self.songDatas[url]['title'] = title
 				artwork_url = ''
 				file_name = ''
 				file_path = ''
 				
+				#歌詞を追加する。
+				if 'artist' in self.songDatas[url]['JPN']:
+					artist_jp = self.songDatas[url]['JPN']['artist']
+					songName_jp = self.songDatas[url]['JPN']['name']
+					LyricInstance = lyrics.Lyric(artist_jp, songName_jp)
+
+
+				elif 'artist' in self.songDatas[url]['USA']:
+					artist_en = self.songDatas[url]['USA']['artist']
+					songName_en = self.songDatas[url]['USA']['name']
+					LyricInstance = lyrics.Lyric(artist_en, songName_en)
+
+
+				if LyricInstance:
+					if LyricInstance.lyric:
+						self.songDatas[url]['lyric'] = LyricInstance.lyric
+					else:
+						self.songDatas[url]['lyric'] = ''
+
+				#アートワークDLしてDL先のパスを記録する。
 				if 'artworkUrl' in self.songDatas[url]['JPN']:
 					artwork_url = self.songDatas[url]['JPN']['artworkUrl']
 					name = self.songDatas[url]['JPN']['name']
