@@ -1,4 +1,5 @@
 import eel
+import base64
 import requests
 import urllib.parse
 from pytube import YouTube
@@ -41,6 +42,14 @@ def get_src(videoID):
 		else:
 			return 'images/14ver1.jpg'
 
+@eel.expose
+def write_song_data(urls, songDatasDict):
+	print(urls)
+	print(songDatasDict)
+	base64data = songDatasDict[urls[0]]['userImage']
+	img = base64.b64decode(base64data.encode())
+	print(img)
+	
 
 
 # 最初に表示するhtmlページ

@@ -13,6 +13,7 @@ class menu {
 		this.DOM.languageInputs = document.querySelectorAll('.language input[name="country"]')
 		this.DOM.dummy = document.querySelector('.song__dummy');
 		this.DOM.lyricArea = document.querySelector('.song__lyrics textarea');
+		this.DOM.save = document.querySelector('.save__button');
 
 		this._addEvent();
 	}
@@ -32,6 +33,7 @@ class menu {
 			const activate = document.querySelector('.activateP')
 			activate.classList.remove('activateP')
 			pageClass.add('activateP');
+			//辞書が空でもJSではTrue
 			if(page == 'Tags' && urlsFromPython && songDatasFromPython) {
 				//ここで新しくインスタンスを生成して変数に格納してるの注意
 				this.songDatas = new songDatas(urlsFromPython, songDatasFromPython);
@@ -127,8 +129,19 @@ class menu {
 		
 	}
 
+	getCurrentPageInfo() {
+		const songNumber = this.currentPageNumber() - 1;
+		//1なら日本語2なら英語
+		const languageNumber = this.songDatas.songDatasDict[this.songDatas.urls[songNumber]]['language'];
+		return {'songNumber': songNumber, 'languageNumber': languageNumber}
+	}
+
 	flexTextarea(elm) {
 		this.DOM.dummy.textContent = elm.target.value + '\u200b'
+	}
+
+	writeSongData() {
+		eel.write_song_data(this.songDatas.urls, this.songDatas.songDatasDict);
 	}
 	
 
@@ -137,13 +150,14 @@ class menu {
 		this.DOM.paginationPrevious.addEventListener("click", this.previousPage.bind(this));
 		this.DOM.paginationNext.addEventListener("click", this.nextPage.bind(this));
 		this.DOM.languageInputs.forEach(input => input.addEventListener("change", this.songDataLaungage.bind(this)));
-		this.DOM.lyricArea.addEventListener('input', this.flexTextarea.bind(this))
+		this.DOM.lyricArea.addEventListener('input', this.flexTextarea.bind(this));
+		this.DOM.save.addEventListener('click', this.writeSongData.bind(this));
 		
 
 	}
 }
 
-test = new menu();
+menuInsta = new menu();
 
 class songDatas {
 	constructor(urls, songDatasDict) {
@@ -156,6 +170,7 @@ class songDatas {
 		this.DOM.categoryInput = document.querySelector('.song_category input');
 		this.DOM.yearInput = document.querySelector('.song__year input');
 		this.DOM.artworkImg = document.querySelector('.song__cover > img');
+		this.DOM.artworkInput = document.querySelector('.song__cover input');
 		this.DOM.lyricArea = document.querySelector('.song__lyrics textarea');
 		this.DOM.dummy = document.querySelector('.song__dummy');
 		
@@ -170,6 +185,7 @@ class songDatas {
 		this.changeFormData(songDataEn1);
 		this.changeArtwork(this.songDatasDict[this.urls[0]]['artwork_path']);
 		this.changeLyric(this.songDatasDict[this.urls[0]]['lyric'])
+		this._addEvent();
 		
 	}
 
@@ -200,11 +216,60 @@ class songDatas {
 			this.DOM.yearInput.value = "";
 		}
 	}
+
+	updataInput(elm) {
+		const parentDiv = elm.target.closest('div');
+		const labelElm = parentDiv.querySelector('label');
+		
+		const currentPage = menuInsta.getCurrentPageInfo();
+		console.log(currentPage);
+		let language = '';
+		if (currentPage['languageNumber'] == '1') {
+			language = 'USA';
+		} else {
+			language = 'JPN';
+		}
+		let dictName = labelElm.className;
+		this.songDatasDict[this.urls[currentPage['songNumber']]][language][dictName] = elm.target.value;
+	}
+
+	updataLyric(elm) {
+		const parentDiv = elm.target.closest('.song__lyrics');
+		const labelElm = parentDiv.querySelector('label');
+		const currentPage = menuInsta.getCurrentPageInfo();
+		let dictName = labelElm.className;
+		this.songDatasDict[this.urls[currentPage['songNumber']]][dictName] = elm.target.value;
+	}
+
+	_addImageObject(elm) {
+		const base64URL = elm.target.result;
+		const base64 = base64URL.replace(/data:.*\/.*;base64,/, '');
+		const currentPage = menuInsta.getCurrentPageInfo();
+		this.songDatasDict[this.urls[currentPage['songNumber']]]['userImage'] = base64;
+		console.log(this.songDatasDict); 
+	}
+
+	getImageFile(elm) {
+		let file_reader = new FileReader();
+		file_reader.addEventListener('load', this._addImageObject.bind(this));
+		file_reader.readAsDataURL(elm.target.files[0]);
+	}
+
+	_addEvent() {
+		this.DOM.nameInput.addEventListener('input', this.updataInput.bind(this));
+		this.DOM.artistInput.addEventListener('input', this.updataInput.bind(this));
+		this.DOM.albumInput.addEventListener('input', this.updataInput.bind(this));
+		this.DOM.categoryInput.addEventListener('input', this.updataInput.bind(this));
+		this.DOM.yearInput.addEventListener('input', this.updataInput.bind(this));
+		this.DOM.artworkInput.addEventListener('change', this.getImageFile.bind(this));
+		this.DOM.lyricArea.addEventListener('input', this.updataLyric.bind(this));
+	}
 }
 
 let urlsFromPython = []
 let songDatasFromPython = {}
 
+//python側で動画のダウンロードが完了した時点で実行される。
 eel.expose(addSongData)
 function addSongData(urls, songDatas){
 	urlsFromPython = urls;

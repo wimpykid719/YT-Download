@@ -1,3 +1,4 @@
+import re
 import asyncio
 import requests
 from urllib.parse import quote
@@ -8,6 +9,11 @@ from bs4 import BeautifulSoup, Comment
 
 class Lyric():
 	def __init__(self, artist, song_name, max_recur=2):
+		song_name = re.sub("\(.+?\)", "", song_name)
+		song_name = song_name.replace("'", "")
+		# 先頭末尾の空白等削除
+		song_name = song_name.strip()
+
 		self.artist = artist
 		self.song_name = song_name
 		self.lyric = ''
@@ -54,7 +60,7 @@ class Lyric():
 		artist = artist.replace(' ', '')
 		artist = artist.lower()
 		song_name = song_name.replace(' ', '')
-		spng_name = song_name.lower()
+		song_name = song_name.lower()
 		return f'https://www.azlyrics.com/lyrics/{artist}/{song_name}.html'
 	
 	def make_j_lyric_url(self, artist, song_name):
@@ -106,6 +112,8 @@ class Lyric():
 		soup = self.get_soup(url)
 		if soup:
 			lyric_soup = soup.select('body > div.container.main-page > div > div > div:nth-child(8)')
+			if not lyric_soup:
+				lyric_soup = soup.select('body > div.container.main-page > div > div > div:nth-child(10)')
 			return lyric_soup[0].text
 
 	def scrape_j_lyric(self, url):
@@ -121,6 +129,7 @@ class Lyric():
 
 	def lyric_from_genius(self, url, depth):
 		print('再帰の回数確認depth: ', self.__max_recur - depth)
+		print(url)
 
 		async def main_loop(url):
 			async def get_lyric_soup(url):
