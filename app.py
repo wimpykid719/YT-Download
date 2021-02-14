@@ -1,9 +1,9 @@
 import eel
-import base64
 import requests
 import urllib.parse
 from pytube import YouTube
 from modules import YT_Download
+from modules import meta_song
 
 
 # ウエブコンテンツを持つフォルダー
@@ -44,12 +44,8 @@ def get_src(videoID):
 
 @eel.expose
 def write_song_data(urls, songDatasDict):
-	print(urls)
-	print(songDatasDict)
-	base64data = songDatasDict[urls[0]]['userImage']
-	img = base64.b64decode(base64data.encode())
-	print(img)
-	
+	meta_song.writeMusicData(urls, songDatasDict)
+
 
 
 # 最初に表示するhtmlページ

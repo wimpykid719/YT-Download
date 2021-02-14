@@ -193,6 +193,7 @@ class Downloader():
 			songData = meta_song.addMusicData(song, artist)
 
 			
+			
 			with self.lock:
 				"""
 				中身は 'URL': {{'JPN': {'name':..., 'artist':..., }, 'USA': {'name':..., 'artist':..., }}}
@@ -281,6 +282,9 @@ class Downloader():
 		if not self.mode == '1':
 			videopath = path + '/video/original/' + title + '.' + video_hq['mime_type'].split('/')[1]
 			self.join_audio_video(video_hq, path, title, videopath, audiopath)
+		
+		with self.lock:
+			self.songDatas[url]['audiopath'] = audiopath
 
 	def get_progress(self, threads):
 		while any(t.is_alive() for t in threads):
@@ -322,8 +326,6 @@ class Downloader():
 		# 	join_audio_video.join()
 
 		print('done')
-		print(self.urls)
-		print(self.songDatas)
 		eel.addSongData(self.urls, self.songDatas)
 		eel.doneProgress()
 

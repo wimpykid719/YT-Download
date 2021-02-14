@@ -1,8 +1,9 @@
+import base64
 import requests
 import json
 import asyncio
 import urllib.parse
-from mutagen.mp4 import MP4
+from mutagen.mp4 import MP4, MP4Cover
 
 # yt = YouTube("https://www.youtube.com/watch?v=3hPI3xjsNKE")
 # m4a_path = "BASI_愛のままに_feat唾奇_Official_Music_Video.m4a"
@@ -92,6 +93,49 @@ class addMusicData():
 		return songData
 	
 	# def add_songData(self):
+
+class writeMusicData():
+	def __init__(self, urls, songDatasDict):
+		if urls and songDatasDict:
+			self.write_data(urls, songDatasDict)
+
+	
+	def write_cover(self, songData):
+		print(songData)
+		if 'userImage' in songData:
+			base64data = songData['userImage']
+			img = base64.b64decode(base64data.encode())
+			return img
+		elif songData['artwork_path']:
+			path = 'web/' + songData['artwork_path']
+			with open(path, 'rb') as f:
+				img_b = f.read()
+				return img_b
+		else:
+			return ''
+	
+			
+	
+	def write_data(self, urls, songDatasDict):
+		for url in urls:
+			language = 'USA'
+			m4a_path = songDatasDict[url]['audiopath']
+			m4a_music_tags = MP4(m4a_path)
+			m4a_music_tags['\xa9lyr'] = songDatasDict[url]['lyric']
+			img_b =  self.write_cover(songDatasDict[url])
+			m4a_music_tags['covr'] = [MP4Cover(img_b, imageformat=MP4Cover.FORMAT_JPEG)]
+			
+			if songDatasDict[url]['language'] == '1':
+				language = 'USA'
+			else:
+				language = 'JPN'
+
+			m4a_music_tags['\xa9nam'] = songDatasDict[url][language]['name']
+			m4a_music_tags['\xa9alb'] = songDatasDict[url][language]['album']
+			m4a_music_tags['\xa9ART'] = songDatasDict[url][language]['artist']
+			m4a_music_tags['\xa9day'] = songDatasDict[url][language]['year']
+			m4a_music_tags['\xa9gen'] = songDatasDict[url][language]['category']
+			m4a_music_tags.save()
 
 
 
