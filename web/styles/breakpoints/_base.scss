@@ -48,26 +48,59 @@ li {
 
 //header
 .header {
-	width: 30%;
+	width: 300px;
 	min-height: 100vh;
 	background-color: $headerWhite;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	overflow-y: auto;
+	z-index: 2;
+	transform: translateX(-300px);
+	transition: transform .5s;
+	@include none-scrollBar;
 
-	&__inner {
-		width: 90%;
-		margin: 0 auto;
-		margin-top: 10%;
-		margin-bottom: 10%;
-		max-width: 1024px;
-	}
-	.appName {
-		text-align: center;
+
+	&__close {
+		color: $cBlue;
+		text-align: end;
+		padding: 20px 20px 0px 0px;
 		& > svg {
-			margin-right: 10px;
-			margin-bottom: 4px;
-			fill: $YoutubeRed;
-			height: 1.4em;
-			width: 1.4em;
+			cursor: pointer;
+			height: 18px;
+			width: 18px;
 		}
+		&:hover {
+			color: #5798ff;
+		}
+	}
+	
+	&__inner {
+		margin: 10% auto;
+	}
+	
+	&.open {
+		transform: translateX(0);
+		border-radius: 0px 15px 15px 0px;
+		box-shadow: 6px 6px 18px -10px #a0c2f9;
+
+	}
+}
+
+.blur-cover {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	background-color: rgba(0, 23, 61, 0.5);
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 1s;
+	&.visible {
+		opacity: 1;
+		visibility: visible;
 	}
 }
 
@@ -95,6 +128,18 @@ li {
 				height: 30px;
 			}
 		}
+	}
+}
+
+
+.appName {
+	margin-bottom: 10%;
+	& > svg {
+		margin-right: 10px;
+		margin-bottom: 4px;
+		fill: $YoutubeRed;
+		height: 1.4em;
+		width: 1.4em;
 	}
 }
 
@@ -180,6 +225,8 @@ li {
 			font-weight: bold;
 		}
 		&__support {
+			cursor: pointer;
+			display: block;
 			border: none;
 			font-size: .75em;
 			background-color: $cGreen;
@@ -232,10 +279,26 @@ li {
 	padding-top: 2%;
 }
 
+.above {
+	display: flex;
+	justify-content: space-between;
+}
+
+.menu-mobile {
+	color: $cBlue;
+	margin-left: 2%;
+	cursor: pointer;
+	& > .icon {
+		width: 30px;
+		height: 30px;
+	}
+	&:hover {
+		color: #5798ff;
+	}
+}
+
 .add {
 	margin-bottom: 3%;
-	display: flex;
-	justify-content: flex-end;
 	padding-right: 5%;
 	
 	&__button {
@@ -285,10 +348,7 @@ li {
 	max-width: $contentMaxWidth;
 }
 
-.dlcardWrap {
-	display: flex;
-	
-}
+
 
 .fadeeffect {
 	opacity: 0;
@@ -303,11 +363,9 @@ li {
 
 .dlcard {
 	@extend .font-sm;
-	display:flex;
-	flex-direction: column;
 	position: relative;
-	height: 300px;
-	margin-bottom: 4%;
+	height: 250px;
+	margin-bottom: 8%;
 
 	&__title {
 		top: 5%;
@@ -616,7 +674,7 @@ li {
 }
 
 .song {
-	width: 70%;
+	width: 90%;
 	margin: 0 auto;
 	&__header {
 		display: flex;
@@ -626,8 +684,6 @@ li {
 		width: 160px;
 	}
 	&__info-cover {
-		display: flex;
-		justify-content: space-between;
 		margin-bottom: 10%;
 
 	}
@@ -644,9 +700,10 @@ li {
 		flex-direction: column;
 		background-color: $songInfobg;
 		border-radius: 24px;
-		width: 60%;
 		height: 280px;
 		padding: 2ch 4ch 4ch 4ch;
+		margin-bottom: 10%;
+
 		& label {
 			display: inline-block;
 			width: 130px;
@@ -789,6 +846,7 @@ li {
 }
 
 .save {
+	margin: 10% auto;
 	&__button {
 		display: block;
 		background-color: $cBlue;

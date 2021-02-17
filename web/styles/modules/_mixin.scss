@@ -30,3 +30,11 @@
     @content;
   }
 }
+
+@mixin none-scrollBar {
+  -ms-overflow-style: none;    /* IE, Edge 対応 */
+  scrollbar-width: none;
+  &::-webkit-scrollbar {  /* Chrome, Safari 対応 */
+    display:none;
+  }
+}

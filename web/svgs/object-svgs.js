@@ -63,6 +63,20 @@ const svgs = {
 					</symbol>\
 				</defts>\
 			',
+			'\
+				<defts>\
+					<symbol id="icon-menu" fill="none" viewBox="0 0 24 24" stroke="currentColor">\
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />\
+					</symbol>\
+				<defts>\
+			',
+			'\
+				<defts>\
+					<symbol id="icon-leftArrow" fill="none" viewBox="0 0 24 24" stroke="currentColor">\
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />\
+					</symbol>\
+				<defts>\
+			',
 
 		],
 	

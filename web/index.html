@@ -11,9 +11,12 @@
 <script type="text/javascript" src="/eel.js"></script>
 <div id="global-container">
 	<header class="header">
+		<div class="header__close">
+			<svg class="icon icon-leftArrow"><use xlink:href="#icon-leftArrow"></use></svg>
+		</div>
 		<div class="header__inner">
-			<h1 class="appName"><svg class="icon icon-youtube"><use xlink:href="#icon-youtube"></use></svg>YT Download</h1>
 			<div class="infomation">
+				<h1 class="appName"><svg class="icon icon-youtube"><use xlink:href="#icon-youtube"></use></svg>YT Download</h1>
 				<nav class="menu">
 					<ul>
 						<li class="active"><svg class="icon icon-download"><use xlink:href="#icon-download"></use></svg>Download</li>
@@ -47,11 +50,11 @@
 							</div>
 							<div class="please">
 								<span class="please__pray">開発を続けさせて下さい。</span>
-								<button class="please__support">Support</button>
+								<button class="please__support" >Support</button>
 							</div>
 						</div>
 						<div class="supportContent__discript">
-							<span>多くのサービスで使用されるStripeを使い安全に行います。</span>
+							<span>多くのサービスで使用されるPayPalを使い安全に行います。</span>
 						</div>
 					</div>
 				</div>
@@ -71,13 +74,19 @@
 		<!-- header__innerのdiv -->
 		</div>
 	</header>
+	<div class="blur-cover"></div>
 	<div class="main activateP">
-		<div class="add">
-			<button class="add__button">
-				<span>add</span>
-				<span></span>
-				<span></span>
-			</button>
+		<div class="above">
+			<div class="menu-mobile">
+				<svg class="icon icon-menu"><use xlink:href="#icon-menu"></use>
+			</div>
+			<div class="add">
+				<button class="add__button">
+					<span>add</span>
+					<span></span>
+					<span></span>
+				</button>
+			</div>
 		</div>
 		<div class="youtubeDownload">
 			<form onsubmit="return false" autocomplete="off">
@@ -150,6 +159,9 @@
 	<!-- notice-contentのdiv -->
 	</div>
 	<div class="main2">
+		<div class="menu-mobile">
+			<svg class="icon icon-menu"><use xlink:href="#icon-menu"></use>
+		</div>
 		<div class="songs-song-wrap">
 			<div class="title-pagination-wrap">
 				<div class="datatitle">

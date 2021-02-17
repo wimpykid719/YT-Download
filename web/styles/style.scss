@@ -3,7 +3,18 @@
 @import "breakpoints/base";
 @import "modules/loading";
 
+@media (min-width: 600px) {
+    @import "breakpoints/600";
+}
 
-@media (min-width: 1024px) {
-    @import "breakpoints/1024up";
+@media (min-width: 700px) {
+    @import "breakpoints/700";
+}
+
+@media (min-width: 960px) {
+    @import "breakpoints/960";
+}
+
+@media (min-width: 1280px) {
+    @import "breakpoints/1280";
 }

@@ -1,0 +1,8 @@
+.dlcardWrap {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	& > .dlcard {
+		flex-basis: 48%;
+	}
+}

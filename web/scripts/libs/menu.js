@@ -1,7 +1,13 @@
 class menu {
 	constructor() {
 		this.DOM = {}
+		this.DOM.header = document.querySelector('.header')
+		this.DOM.headerCloseIcon = document.querySelector('.header__close > .icon');
 		this.DOM.menu = document.querySelector('.menu');
+		this.DOM.blurCover = document.querySelector('.blur-cover');
+		this.DOM.menuMobile = document.querySelector('.main .menu-mobile');
+		this.DOM.menuMobile2 = document.querySelector('.main2 .menu-mobile');
+
 		this.DOM.Download = document.querySelector('.main');
 		this.DOM.Tags = document.querySelector('.main2');
 		this.DOM.numerator = document.querySelector('.numerator');
@@ -17,6 +23,13 @@ class menu {
 
 		this._addEvent();
 	}
+
+
+	_toggle() {
+		this.DOM.header.classList.toggle('open');
+		this.DOM.blurCover.classList.toggle('visible');
+	}
+
 
 	addZero(number) {
 		let zeroNumber = '';
@@ -146,6 +159,10 @@ class menu {
 	
 
 	_addEvent() {
+		this.DOM.menuMobile.addEventListener("click", this._toggle.bind(this));
+		this.DOM.menuMobile2.addEventListener("click", this._toggle.bind(this));
+		this.DOM.headerCloseIcon.addEventListener("click", this._toggle.bind(this));
+
 		this.DOM.menu.addEventListener("click", this.pageChange.bind(this));
 		this.DOM.paginationPrevious.addEventListener("click", this.previousPage.bind(this));
 		this.DOM.paginationNext.addEventListener("click", this.nextPage.bind(this));

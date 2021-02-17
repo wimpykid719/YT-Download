@@ -1,0 +1,8 @@
+.song {
+    width: 630px;
+    &__info-cover {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 4%;
+    }
+}

@@ -1,0 +1,13 @@
+.header {
+	z-index: 0;
+    transform: translateX(0);
+    position: static;
+    &__close {
+        visibility: hidden;
+    }
+
+}
+
+.menu-mobile {
+    visibility: hidden;
+}
