@@ -39,13 +39,15 @@ class addMusicData():
 			tasks = [get_songData(url) for url in urls]
 			return await asyncio.gather(*tasks)
 		
-		def squeeze_data(song_data, artistName):
-			if song_data[0]["artistName"].lower() == artistName.lower():
-				return song_data[0]
+		def squeeze_data(song_datas, artistName):
+			for song_data in song_datas:
+				if song_data["artistName"].lower() == artistName.lower():
+					return song_data
 
 		urls = [f'https://itunes.apple.com/search?term={songName}&media=music&entity=song&country=jp&lang=ja_jp&limit=10', f'https://itunes.apple.com/search?term={songName}&media=music&entity=song&limit=10']
 		self.loop = asyncio.new_event_loop()
 		datas = self.loop.run_until_complete(main_loop(urls))
+		# Datasって最悪の命名規則だそもそもDatasなんて言葉ない
 		for data in datas:
 			data = squeeze_data(data, artistName)
 			if data:

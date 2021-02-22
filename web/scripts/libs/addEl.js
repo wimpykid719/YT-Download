@@ -30,7 +30,7 @@ class AddDLcard {
 		addElement.classList.remove('showeffect');
 		addElement.querySelector('.dlcard__title > .dlcard__videoName').innerText = '';
 		let thumbnail = addElement.querySelector('.dlcard__thumbnail');
-		thumbnail.querySelector('img').src = 'images/pinkguy.jpg';
+		thumbnail.querySelector('img').src = 'images/thumbnail.png';
 		const classNames = thumbnail.querySelector('.dlcard__thumbnail--cover').classList;
 		let thumbnailClassName = classNames[1];
 		let dlcardNumber = thumbnailClassName.match(/[0-9]+/)[0];

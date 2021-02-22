@@ -198,11 +198,12 @@ class Downloader():
 				"""
 				中身は 'URL': {{'JPN': {'name':..., 'artist':..., }, 'USA': {'name':..., 'artist':..., }}}
 				"""
-				self.songDatas[url] = songData.make_songData()
+				self.songDatas[url] = songData.make_songData() #なければ{}
 				self.songDatas[url]['title'] = title
 				artwork_url = ''
 				file_name = ''
 				file_path = ''
+				LyricInstance = ''
 				
 				#歌詞を追加する。
 				if 'artist' in self.songDatas[url]['JPN']:

@@ -2,7 +2,7 @@ class menu {
 	constructor() {
 		this.DOM = {}
 		this.DOM.header = document.querySelector('.header')
-		this.DOM.headerCloseIcon = document.querySelector('.header__close > .icon');
+		this.DOM.headerCloseIcon = document.querySelector('.header__close');
 		this.DOM.menu = document.querySelector('.menu');
 		this.DOM.blurCover = document.querySelector('.blur-cover');
 		this.DOM.menuMobile = document.querySelector('.main .menu-mobile');
@@ -46,8 +46,8 @@ class menu {
 			const activate = document.querySelector('.activateP')
 			activate.classList.remove('activateP')
 			pageClass.add('activateP');
-			//辞書が空でもJSではTrue
-			if(page == 'Tags' && urlsFromPython && songDatasFromPython) {
+			//辞書が空でもJSではTrue Object.keys
+			if(page == 'Tags' && !(urlsFromPython.length == 0) && !(Object.keys(songDatasFromPython).length == 0)) {
 				//ここで新しくインスタンスを生成して変数に格納してるの注意
 				this.songDatas = new songDatas(urlsFromPython, songDatasFromPython);
 				const title = this.songDatas.songDatasDict[this.songDatas.urls[0]]['title']
@@ -162,6 +162,7 @@ class menu {
 		this.DOM.menuMobile.addEventListener("click", this._toggle.bind(this));
 		this.DOM.menuMobile2.addEventListener("click", this._toggle.bind(this));
 		this.DOM.headerCloseIcon.addEventListener("click", this._toggle.bind(this));
+		this.DOM.blurCover.addEventListener("click", this._toggle.bind(this));
 
 		this.DOM.menu.addEventListener("click", this.pageChange.bind(this));
 		this.DOM.paginationPrevious.addEventListener("click", this.previousPage.bind(this));

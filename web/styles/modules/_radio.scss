@@ -7,12 +7,15 @@ $md-radio-ripple-size: 10px;
 
 @keyframes ripple {
   0% {
+    //最初は1pxの影の広がりが1pxだけど色がついてないので見えない。
     box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.0);
   }
   50% { 
+    //ここで影が10pxまで広がるそして、影に色が少し付く。
     box-shadow: 0px 0px 0px $md-radio-ripple-size rgba(0, 0, 0, 0.1);
   }
   100% {
+    //大きい影のサイズのままフェードアウトする。
     box-shadow: 0px 0px 0px $md-radio-ripple-size rgba(0, 0, 0, 0);
   }
 }
@@ -22,7 +25,7 @@ input[type="radio"] {
     display: none;
     &:checked + label:before {
         border-color: $md-radio-checked-color;
-        animation: ripple 0.2s linear forwards;   
+        animation: ripple 0.2s linear;
     }
     &:checked + label:after {
         transform: scale(1);

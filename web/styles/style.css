@@ -62,10 +62,10 @@ li {
   z-index: 2;
   -webkit-transform: translateX(-300px);
           transform: translateX(-300px);
-  -webkit-transition: -webkit-transform .5s;
-  transition: -webkit-transform .5s;
-  transition: transform .5s;
-  transition: transform .5s, -webkit-transform .5s;
+  -webkit-transition: -webkit-transform .3s;
+  transition: -webkit-transform .3s;
+  transition: transform .3s;
+  transition: transform .3s, -webkit-transform .3s;
   -ms-overflow-style: none;
   /* IE, Edge 対応 */
   scrollbar-width: none;
@@ -76,20 +76,38 @@ li {
   display: none;
 }
 
-.header__close {
-  color: #126eff;
-  text-align: end;
-  padding: 20px 20px 0px 0px;
+.header__top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
 }
 
-.header__close > svg {
+.header__close {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  color: #126eff;
+  -webkit-transition: background-color .5s;
+  transition: background-color .5s;
+  border-radius: 50%;
+  margin: 5% 7% 0% 0%;
+}
+
+.header__close > .icon {
   cursor: pointer;
   height: 18px;
   width: 18px;
+  position: absolute;
+  top: 20%;
+  left: 15%;
 }
 
 .header__close:hover {
   color: #5798ff;
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .header__inner {
@@ -336,18 +354,28 @@ li {
 }
 
 .menu-mobile {
+  position: relative;
   color: #126eff;
   margin-left: 2%;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
   cursor: pointer;
+  -webkit-transition: background-color .5s;
+  transition: background-color .5s;
 }
 
 .menu-mobile > .icon {
   width: 30px;
   height: 30px;
+  position: absolute;
+  top: 11%;
+  left: 10%;
 }
 
 .menu-mobile:hover {
   color: #5798ff;
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .add {
@@ -362,8 +390,8 @@ li {
   border: solid 2px #126eff;
   background-color: transparent;
   border-radius: 35px;
-  -webkit-box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-          box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  -webkit-box-shadow: rgba(18, 110, 255, 0.2) 0px 8px 24px;
+          box-shadow: rgba(18, 110, 255, 0.2) 0px 8px 24px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1214,7 +1242,7 @@ li {
             transform: translateX(0);
     position: static;
   }
-  .header__close {
+  .header__top {
     visibility: hidden;
   }
   .menu-mobile {

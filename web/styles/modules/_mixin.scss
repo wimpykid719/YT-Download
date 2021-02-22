@@ -1,4 +1,5 @@
 @mixin animation(
+  //引数で指定がなければ右側のデフォルトの値になる。
   $name,
   $duration: 1s,
   $timing-function: ease,
