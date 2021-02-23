@@ -749,29 +749,42 @@ li {
 		
 	}
 	&__language {
-		& > nav {
-			& > ul {
-				display: flex;
-				justify-content: space-between;
-				& > li {
-					& input[type="radio"] {
-						display: none;
-						&:checked + label {
-							background-color: $songRadio;
-							color: $songRadioText;
-							animation: ripple 0.2s linear forwards;
-						}
-					}
-					& label {
-						width: 70px;
-						background-color: $cWhite;
-						border-radius: 50px;
-						text-align: center;
-						cursor: pointer;
-						font-size: 12px;
-						padding: 1ch;
-					}
-				}
+		position: relative;
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		cursor: pointer;
+		transition: background-color .2s;
+		&:before {
+			position: absolute;
+			content: '';
+			width: 15px;
+			height: 15px;
+			border-radius: 50%;
+			top: 30%;
+			left: 37%;
+			transform: scale(0);
+			background-color: rgba(0, 0, 0, 0.1);
+			transition: transform .2s;
+		}
+
+		&.ripple:before{
+			transform: scale(1);
+			animation: ripple 0.2s linear forwards;
+		}
+
+		& > span {
+			font-size: 13px;
+			position: absolute;
+			z-index: 1;
+			transform: translate(19px, 3px);
+			color: $ProgressBg;
+			transition: all .2s;
+			&.checked {
+				font-size: 18px;
+				z-index: 0;
+				color: $cBlue;
+				transform: translate(8px, 11px);
 			}
 		}
 	}
@@ -932,7 +945,8 @@ li {
 	0% {
 	  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.0);
 	}
-	50% { 
+	50% {
+		//$md-radio-ripple-sizeに10pxが入ってる。これで広がってるように見える。
 	  box-shadow: 0px 0px 0px $md-radio-ripple-size rgba(0, 0, 0, 0.1);
 	}
 	100% {

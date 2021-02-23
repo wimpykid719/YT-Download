@@ -15,8 +15,8 @@ class menu {
 		this.DOM.fraction = document.querySelector('.fraction');
 		this.DOM.paginationPrevious = document.querySelector('.pagination__previous');
 		this.DOM.paginationNext = document.querySelector('.pagination__next');
-
-		this.DOM.languageInputs = document.querySelectorAll('.language input[name="country"]')
+		this.DOM.songLanguage = document.querySelector('.song__language');
+		this.DOM.languageSpans = document.querySelectorAll('.song__language > span');
 		this.DOM.dummy = document.querySelector('.song__dummy');
 		this.DOM.lyricArea = document.querySelector('.song__lyrics textarea');
 		this.DOM.save = document.querySelector('.save__button');
@@ -24,6 +24,20 @@ class menu {
 		this._addEvent();
 	}
 
+	_LanguageChange() {
+		if(!(Object.keys(this.songDatas).length == 0)){
+			this.DOM.songLanguage.classList.add('ripple');
+		window.setTimeout(function(){
+			this.DOM.songLanguage.classList.remove('ripple');
+		}.bind(this), 200);
+		this.DOM.languageSpans.forEach((span) => {
+			span.classList.toggle('checked');
+		});
+		this.DOM.languageSpanChecked = document.querySelector('.song__language > .checked');
+		const contentSpan = this.DOM.languageSpanChecked.textContent;
+		this.songDataLaungage(contentSpan);
+		}
+	}
 
 	_toggle() {
 		this.DOM.header.classList.toggle('open');
@@ -46,7 +60,10 @@ class menu {
 			const activate = document.querySelector('.activateP')
 			activate.classList.remove('activateP')
 			pageClass.add('activateP');
-			//辞書が空でもJSではTrue Object.keys
+			//エラーを回避するため
+			this.songDatas = {}
+
+			//辞書が空でもJSではTrue
 			if(page == 'Tags' && !(urlsFromPython.length == 0) && !(Object.keys(songDatasFromPython).length == 0)) {
 				//ここで新しくインスタンスを生成して変数に格納してるの注意
 				this.songDatas = new songDatas(urlsFromPython, songDatasFromPython);
@@ -126,11 +143,10 @@ class menu {
 		}
 	}
 
-	songDataLaungage(elm) {
+	songDataLaungage(Text) {
 		let songNumber = this.currentPageNumber() - 1;
-		let changedElemt = elm.target;
 		let songData = {}
-		if(changedElemt.value == '1') {
+		if(Text == 'A') {
 			songData = this.songDatas.songDatasDict[this.songDatas.urls[songNumber]]['USA'];
 			this.songDatas.songDatasDict[this.songDatas.urls[songNumber]]['language'] = '1'
 		} else {
@@ -167,7 +183,7 @@ class menu {
 		this.DOM.menu.addEventListener("click", this.pageChange.bind(this));
 		this.DOM.paginationPrevious.addEventListener("click", this.previousPage.bind(this));
 		this.DOM.paginationNext.addEventListener("click", this.nextPage.bind(this));
-		this.DOM.languageInputs.forEach(input => input.addEventListener("change", this.songDataLaungage.bind(this)));
+		this.DOM.songLanguage.addEventListener("click", this._LanguageChange.bind(this));
 		this.DOM.lyricArea.addEventListener('input', this.flexTextarea.bind(this));
 		this.DOM.save.addEventListener('click', this.writeSongData.bind(this));
 		
