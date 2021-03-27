@@ -12,8 +12,8 @@ from modules import createlog
 
 #ファイルを生成しようとする段階でエラーが起きる。
 path = 'test.txt'
-f = open(path)
-print(type(f))
+f = open(path, mode='w')
+f.write('test')
 f.close()
 
 

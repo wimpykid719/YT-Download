@@ -109,13 +109,18 @@ class menu {
 		let selectedValue = this.songDatas.songDatasDict[this.songDatas.urls[pageNumber]]['language']
 		const title = this.songDatas.songDatasDict[this.songDatas.urls[pageNumber]]['title']
 		let songData = {}
+		let spans = this.DOM.languageSpans
 		if(selectedValue == '1') {
-			let EN = document.querySelector('#EN');
-			EN.checked = true;
+			if(!spans[0].classList.contains('checked')){
+				spans[0].classList.add('checked');
+				spans[1].classList.remove('checked');
+			}
 			songData = this.songDatas.songDatasDict[this.songDatas.urls[pageNumber]]['USA']
 		} else {
-			let JPN = document.querySelector('#JPN');
-			JPN.checked = true;
+			if(!spans[1].classList.contains('checked')){
+				spans[1].classList.add('checked');
+				spans[0].classList.remove('checked');
+			}
 			songData = this.songDatas.songDatasDict[this.songDatas.urls[pageNumber]]['JPN']
 		}
 		this.titleShow(title);

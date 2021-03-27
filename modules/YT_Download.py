@@ -190,6 +190,7 @@ class Downloader():
 			# artist・song名に空白以外の区切りがある場合は取り除く。
 			artist = artist.replace(',', '')
 			song = song.replace(',', '')
+			print(f'情報：{artist}, {song}')
 			songData = meta_song.addMusicData(song, artist)
 
 			
@@ -358,7 +359,7 @@ class Downloader():
 # webm動画・音声, MP4それぞれフォルダを分けたい。あと合成したあとのファイルも #音声ファイルをaacに変換してから合成したい　済み
 # 60fpsの場合はどうする。　済み
 # 最後の文字がドットじゃない場合はドットを足す。　済み
-# copyだけだとvp9がmp4に入っててipadでは再生出来んな http://tech.ckme.co.jp/ffmpeg_vcodec.shtml 済みだけど、エンコードはかなりの時間かかる。実用的出ない。
+# copyだけだとvp9がmp4に入っててipadでは再生出来んな http://tech.ckme.co.jp/ffmpeg_vcodec.shtml 済みだけど、エンコードはかなりの時間かかる。実用的でない。
 # 音質は160kpなのか？ 済み
 # 他の人のパソコンでも動作するように相対的なパスを指定
 # 上書きの際y/nと聞かれてプログラムストップ　済み
