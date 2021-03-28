@@ -225,5 +225,5 @@ Webサービス等を開発する際、先にGithub等でオープンソース�
 
 #### 出来る事
 
-上記のポートフォリオから、Pythonを使用した簡単なAPIを使用したスクリプト、処理速度を配慮したスクリプトの作成、HTML・CSS（SCSS）・JavaScriptを使用したWeb制作は出来ます。JavaScriptのモダンなライブラリ等を使用してアプリを作成出来るほどではないですが、Reactのチュートリアルで[五目並べ](https://github.com/wimpykid719/react-get-start)を作成しました。
+上記のポートフォリオから、Pythonを使用した簡単なAPIを使用したスクリプト、処理速度を配慮したスクリプトの作成、HTML・CSS（SCSS）・JavaScriptを使用したWeb制作は出来ます。JavaScriptのモダンなライブラリ等を使用してアプリを作成出来るほどではないですが、Reactのチュートリアルで[五目並べ](https://github.com/wimpykid719/react-get-start)を作成しました。Webアプリ等に必要な基本的機能CRUDは今回のポートフォリオを作成する過程で一通りを行いました。iTunesAPIからJsonデータを取り扱う際に音声についての情報生成（ジャンル、年代、アートワーク）、フロントエンドでそれらの読み込み、ユーザからの変更があればJsonデータの更新・削除が出来ます。
 
